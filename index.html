@@ -3,20 +3,558 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portail des guides techniques d'administration système - Guides gratuits et vérifiés">
     <title>Portail - Guides Techniques</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Styles améliorés pour une meilleure mise en page */
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #7209b7;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --success: #4cc9f0;
+            --warning: #f8961e;
+            --danger: #e63946;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f5f7ff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header amélioré */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 0;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .header-text .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .header-decoration {
+            display: flex;
+            gap: 15px;
+        }
+
+        .decoration-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        .decoration-circle:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .decoration-circle:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.7; }
+        }
+
+        /* Navigation améliorée */
+        nav {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            justify-content: center;
+        }
+
+        nav li {
+            flex: 1;
+            text-align: center;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 1.2rem 2rem;
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 600;
+            transition: var(--transition);
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+
+        /* Section Hero améliorée */
+        .hero-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%234361ee" opacity="0.03"/></svg>');
+        }
+
+        .hero-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .hero-section p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: var(--gray);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Section des guides améliorée */
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        /* Filtres améliorés */
+        .category-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--gray);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        /* Grille de guides améliorée */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .guide-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .guide-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        }
+
+        .environment-badge {
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .environment-badge.server {
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+        }
+
+        .environment-badge.editor {
+            background: rgba(114, 9, 183, 0.1);
+            color: var(--secondary);
+        }
+
+        .environment-badge.security {
+            background: rgba(247, 37, 133, 0.1);
+            color: var(--accent);
+        }
+
+        .card-icon {
+            font-size: 1.8rem;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .card-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .guide-description {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-list li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .card-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .difficulty {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .difficulty-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .difficulty-value {
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .difficulty-value.beginner {
+            background: rgba(76, 201, 240, 0.1);
+            color: var(--success);
+        }
+
+        .difficulty-value.intermediate {
+            background: rgba(248, 150, 30, 0.1);
+            color: var(--warning);
+        }
+
+        .difficulty-value.advanced {
+            background: rgba(230, 57, 70, 0.1);
+            color: var(--danger);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateX(5px);
+        }
+
+        /* Section À propos améliorée */
+        .about-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 3rem;
+            box-shadow: var(--shadow);
+        }
+
+        .about-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        .about-content p {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 2rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .feature:hover {
+            background: rgba(67, 97, 238, 0.05);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+        }
+
+        .feature p {
+            color: var(--gray);
+            margin: 0;
+        }
+
+        /* Footer amélioré */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 2.5rem 0;
+            margin-top: 3rem;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-content p {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            margin: 0 0.5rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .hero-stats {
+                gap: 1.5rem;
+            }
+
+            .guide-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .category-filters {
+                gap: 0.5rem;
+            }
+
+            .filter-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .card-footer {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .header-text h1 {
+                font-size: 2rem;
+            }
+
+            .hero-section, .about-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .guide-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <!-- En-tête -->
-        <header role="banner">
+        <header>
             <div class="header-content">
                 <div class="header-text">
                     <h1>Portail des Guides Techniques</h1>
                     <p class="subtitle">Accédez à tous nos guides d'administration système</p>
                 </div>
-                <div class="header-decoration" aria-hidden="true">
+                <div class="header-decoration">
                     <div class="decoration-circle"></div>
                     <div class="decoration-circle"></div>
                     <div class="decoration-circle"></div>
@@ -24,21 +562,18 @@
             </div>
         </header>
         
-        <!-- Navigation principale -->
-        <nav role="navigation" aria-label="Navigation principale">
+        <nav>
             <ul>
-                <li><a href="#accueil" class="nav-link active" aria-current="page">Accueil</a></li>
+                <li><a href="#accueil" class="nav-link active">Accueil</a></li>
                 <li><a href="#guides" class="nav-link">Guides</a></li>
                 <li><a href="#apropos" class="nav-link">À propos</a></li>
             </ul>
         </nav>
         
-        <!-- Contenu principal -->
-        <main class="main-content" role="main">
-            <!-- Section d'accueil -->
-            <section id="accueil" class="section hero-section" aria-labelledby="hero-heading">
+        <main class="main-content">
+            <section id="accueil" class="section hero-section">
                 <div class="hero-content">
-                    <h2 id="hero-heading">Bienvenue sur le Portail Technique</h2>
+                    <h2>Bienvenue sur le Portail Technique</h2>
                     <p>Découvrez notre collection complète de guides techniques pour l'administration système, soigneusement élaborés pour vous accompagner dans vos projets.</p>
                     <div class="hero-stats">
                         <div class="stat">
@@ -57,28 +592,24 @@
                 </div>
             </section>
             
-            <!-- Section des guides -->
-            <section id="guides" class="section" aria-labelledby="guides-heading">
+            <section id="guides" class="section">
                 <div class="section-header">
-                    <h2 id="guides-heading">Guides Disponibles</h2>
+                    <h2>Guides Disponibles</h2>
                     <p>Explorez nos guides techniques par catégorie</p>
                 </div>
                 
-                <!-- Filtres par catégorie -->
-                <div class="category-filters" role="group" aria-label="Filtrer les guides par catégorie">
-                    <button class="filter-btn active" data-filter="all" aria-pressed="true">Tous</button>
-                    <button class="filter-btn" data-filter="server" aria-pressed="false">Serveurs</button>
-                    <button class="filter-btn" data-filter="security" aria-pressed="false">Sécurité</button>
-                    <button class="filter-btn" data-filter="editor" aria-pressed="false">Éditeurs</button>
+                <div class="category-filters">
+                    <button class="filter-btn active" data-filter="all">Tous</button>
+                    <button class="filter-btn" data-filter="server">Serveurs</button>
+                    <button class="filter-btn" data-filter="security">Sécurité</button>
+                    <button class="filter-btn" data-filter="editor">Éditeurs</button>
                 </div>
                 
-                <!-- Grille des guides -->
-                <div class="guide-grid" role="list" aria-label="Liste des guides techniques">
-                    <!-- Carte Apache -->
-                    <article class="guide-card" data-category="server" role="listitem">
+                <div class="guide-grid">
+                    <div class="guide-card" data-category="server">
                         <div class="card-header">
                             <span class="environment-badge server">Serveur Web</span>
-                            <div class="card-icon" aria-hidden="true">🌐</div>
+                            <div class="card-icon">🌐</div>
                         </div>
                         <div class="card-content">
                             <h3>Configuration Apache</h3>
@@ -94,20 +625,19 @@
                                 <span class="difficulty-label">Niveau :</span>
                                 <span class="difficulty-value intermediate">Intermédiaire</span>
                             </div>
-                            <a href="apache.html" class="btn btn-primary" aria-label="Accéder au guide Configuration Apache">
+                            <a href="apache.html" class="btn btn-primary">
                                 <span>Accéder au guide</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                                     <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </a>
                         </div>
-                    </article>
+                    </div>
                     
-                    <!-- Carte Nano -->
-                    <article class="guide-card" data-category="editor" role="listitem">
+                    <div class="guide-card" data-category="editor">
                         <div class="card-header">
                             <span class="environment-badge editor">Éditeur</span>
-                            <div class="card-icon" aria-hidden="true">⌨️</div>
+                            <div class="card-icon">⌨️</div>
                         </div>
                         <div class="card-content">
                             <h3>Raccourcis Nano</h3>
@@ -123,20 +653,19 @@
                                 <span class="difficulty-label">Niveau :</span>
                                 <span class="difficulty-value beginner">Débutant</span>
                             </div>
-                            <a href="nano.html" class="btn btn-primary" aria-label="Accéder au guide Raccourcis Nano">
+                            <a href="nano.html" class="btn btn-primary">
                                 <span>Accéder au guide</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                                     <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </a>
                         </div>
-                    </article>
+                    </div>
                     
-                    <!-- Carte RSA -->
-                    <article class="guide-card" data-category="security" role="listitem">
+                    <div class="guide-card" data-category="security">
                         <div class="card-header">
                             <span class="environment-badge security">Cryptographie</span>
-                            <div class="card-icon" aria-hidden="true">🔐</div>
+                            <div class="card-icon">🔐</div>
                         </div>
                         <div class="card-content">
                             <h3>Exercices RSA</h3>
@@ -152,20 +681,19 @@
                                 <span class="difficulty-label">Niveau :</span>
                                 <span class="difficulty-value advanced">Avancé</span>
                             </div>
-                            <a href="rsa.html" class="btn btn-primary" aria-label="Accéder au guide Exercices RSA">
+                            <a href="rsa.html" class="btn btn-primary">
                                 <span>Accéder au guide</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                                     <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </a>
                         </div>
-                    </article>
+                    </div>
                     
-                    <!-- Carte SFTP -->
-                    <article class="guide-card" data-category="server" role="listitem">
+                    <div class="guide-card" data-category="server">
                         <div class="card-header">
                             <span class="environment-badge server">Transfert</span>
-                            <div class="card-icon" aria-hidden="true">📁</div>
+                            <div class="card-icon">📁</div>
                         </div>
                         <div class="card-content">
                             <h3>Configuration SFTP</h3>
@@ -181,35 +709,34 @@
                                 <span class="difficulty-label">Niveau :</span>
                                 <span class="difficulty-value intermediate">Intermédiaire</span>
                             </div>
-                            <a href="sftp.html" class="btn btn-primary" aria-label="Accéder au guide Configuration SFTP">
+                            <a href="sftp.html" class="btn btn-primary">
                                 <span>Accéder au guide</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                                     <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </a>
                         </div>
-                    </article>
+                    </div>
                 </div>
             </section>
             
-            <!-- Section À propos -->
-            <section id="apropos" class="section about-section" aria-labelledby="about-heading">
+            <section id="apropos" class="section about-section">
                 <div class="about-content">
-                    <h2 id="about-heading">À propos de ce portail</h2>
+                    <h2>À propos de ce portail</h2>
                     <p>Ce portail a été créé pour rassembler des guides techniques de qualité sur l'administration système. Chaque guide est soigneusement rédigé et vérifié pour vous offrir le meilleur contenu.</p>
                     <div class="about-features">
                         <div class="feature">
-                            <div class="feature-icon" aria-hidden="true">✅</div>
+                            <div class="feature-icon">✅</div>
                             <h4>Contenu Vérifié</h4>
                             <p>Tous les guides sont testés et validés</p>
                         </div>
                         <div class="feature">
-                            <div class="feature-icon" aria-hidden="true">🆓</div>
+                            <div class="feature-icon">🆓</div>
                             <h4>Gratuit</h4>
                             <p>Accès libre à tous les contenus</p>
                         </div>
                         <div class="feature">
-                            <div class="feature-icon" aria-hidden="true">📚</div>
+                            <div class="feature-icon">📚</div>
                             <h4>Complet</h4>
                             <p>Des bases aux configurations avancées</p>
                         </div>
@@ -218,8 +745,7 @@
             </section>
         </main>
         
-        <!-- Pied de page -->
-        <footer role="contentinfo">
+        <footer>
             <div class="footer-content">
                 <p>Portail des guides techniques - Tous droits réservés</p>
                 <p class="footer-links">
@@ -240,20 +766,15 @@
             filterBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
                     // Retirer la classe active de tous les boutons
-                    filterBtns.forEach(b => {
-                        b.classList.remove('active');
-                        b.setAttribute('aria-pressed', 'false');
-                    });
-                    
+                    filterBtns.forEach(b => b.classList.remove('active'));
                     // Ajouter la classe active au bouton cliqué
                     this.classList.add('active');
-                    this.setAttribute('aria-pressed', 'true');
                     
                     const filter = this.getAttribute('data-filter');
                     
                     guideCards.forEach(card => {
                         if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                            card.style.display = 'block';
+                            card.style.display = 'flex';
                             setTimeout(() => {
                                 card.style.opacity = '1';
                                 card.style.transform = 'translateY(0)';
@@ -274,13 +795,8 @@
             navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    navLinks.forEach(l => {
-                        l.classList.remove('active');
-                        l.removeAttribute('aria-current');
-                    });
-                    
+                    navLinks.forEach(l => l.classList.remove('active'));
                     this.classList.add('active');
-                    this.setAttribute('aria-current', 'page');
                     
                     const targetId = this.getAttribute('href');
                     const targetSection = document.querySelector(targetId);
