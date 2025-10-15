@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portail des guides techniques d'administration système - Guides gratuits et vérifiés">
     <title>Portail - Guides Techniques</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <header>
+        <!-- En-tête -->
+        <header role="banner">
             <div class="header-content">
                 <div class="header-text">
                     <h1>Portail des Guides Techniques</h1>
                     <p class="subtitle">Accédez à tous nos guides d'administration système</p>
                 </div>
-                <div class="header-decoration">
+                <div class="header-decoration" aria-hidden="true">
                     <div class="decoration-circle"></div>
                     <div class="decoration-circle"></div>
                     <div class="decoration-circle"></div>
@@ -22,18 +24,21 @@
             </div>
         </header>
         
-        <nav>
+        <!-- Navigation principale -->
+        <nav role="navigation" aria-label="Navigation principale">
             <ul>
-                <li><a href="#accueil" class="nav-link active">Accueil</a></li>
+                <li><a href="#accueil" class="nav-link active" aria-current="page">Accueil</a></li>
                 <li><a href="#guides" class="nav-link">Guides</a></li>
                 <li><a href="#apropos" class="nav-link">À propos</a></li>
             </ul>
         </nav>
         
-        <main class="main-content">
-            <section id="accueil" class="section hero-section">
+        <!-- Contenu principal -->
+        <main class="main-content" role="main">
+            <!-- Section d'accueil -->
+            <section id="accueil" class="section hero-section" aria-labelledby="hero-heading">
                 <div class="hero-content">
-                    <h2>Bienvenue sur le Portail Technique</h2>
+                    <h2 id="hero-heading">Bienvenue sur le Portail Technique</h2>
                     <p>Découvrez notre collection complète de guides techniques pour l'administration système, soigneusement élaborés pour vous accompagner dans vos projets.</p>
                     <div class="hero-stats">
                         <div class="stat">
@@ -52,24 +57,28 @@
                 </div>
             </section>
             
-            <section id="guides" class="section">
+            <!-- Section des guides -->
+            <section id="guides" class="section" aria-labelledby="guides-heading">
                 <div class="section-header">
-                    <h2>Guides Disponibles</h2>
+                    <h2 id="guides-heading">Guides Disponibles</h2>
                     <p>Explorez nos guides techniques par catégorie</p>
                 </div>
                 
-                <div class="category-filters">
-                    <button class="filter-btn active" data-filter="all">Tous</button>
-                    <button class="filter-btn" data-filter="server">Serveurs</button>
-                    <button class="filter-btn" data-filter="security">Sécurité</button>
-                    <button class="filter-btn" data-filter="editor">Éditeurs</button>
+                <!-- Filtres par catégorie -->
+                <div class="category-filters" role="group" aria-label="Filtrer les guides par catégorie">
+                    <button class="filter-btn active" data-filter="all" aria-pressed="true">Tous</button>
+                    <button class="filter-btn" data-filter="server" aria-pressed="false">Serveurs</button>
+                    <button class="filter-btn" data-filter="security" aria-pressed="false">Sécurité</button>
+                    <button class="filter-btn" data-filter="editor" aria-pressed="false">Éditeurs</button>
                 </div>
                 
-                <div class="guide-grid">
-                    <div class="guide-card" data-category="server">
+                <!-- Grille des guides -->
+                <div class="guide-grid" role="list" aria-label="Liste des guides techniques">
+                    <!-- Carte Apache -->
+                    <article class="guide-card" data-category="server" role="listitem">
                         <div class="card-header">
                             <span class="environment-badge server">Serveur Web</span>
-                            <div class="card-icon">🌐</div>
+                            <div class="card-icon" aria-hidden="true">🌐</div>
                         </div>
                         <div class="card-content">
                             <h3>Configuration Apache</h3>
@@ -85,19 +94,20 @@
                                 <span class="difficulty-label">Niveau :</span>
                                 <span class="difficulty-value intermediate">Intermédiaire</span>
                             </div>
-                            <a href="apache.html" class="btn btn-primary">
+                            <a href="apache.html" class="btn btn-primary" aria-label="Accéder au guide Configuration Apache">
                                 <span>Accéder au guide</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                                     <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </a>
                         </div>
-                    </div>
+                    </article>
                     
-                    <div class="guide-card" data-category="editor">
+                    <!-- Carte Nano -->
+                    <article class="guide-card" data-category="editor" role="listitem">
                         <div class="card-header">
                             <span class="environment-badge editor">Éditeur</span>
-                            <div class="card-icon">⌨️</div>
+                            <div class="card-icon" aria-hidden="true">⌨️</div>
                         </div>
                         <div class="card-content">
                             <h3>Raccourcis Nano</h3>
@@ -113,19 +123,20 @@
                                 <span class="difficulty-label">Niveau :</span>
                                 <span class="difficulty-value beginner">Débutant</span>
                             </div>
-                            <a href="nano.html" class="btn btn-primary">
+                            <a href="nano.html" class="btn btn-primary" aria-label="Accéder au guide Raccourcis Nano">
                                 <span>Accéder au guide</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                                     <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </a>
                         </div>
-                    </div>
+                    </article>
                     
-                    <div class="guide-card" data-category="security">
+                    <!-- Carte RSA -->
+                    <article class="guide-card" data-category="security" role="listitem">
                         <div class="card-header">
                             <span class="environment-badge security">Cryptographie</span>
-                            <div class="card-icon">🔐</div>
+                            <div class="card-icon" aria-hidden="true">🔐</div>
                         </div>
                         <div class="card-content">
                             <h3>Exercices RSA</h3>
@@ -141,19 +152,20 @@
                                 <span class="difficulty-label">Niveau :</span>
                                 <span class="difficulty-value advanced">Avancé</span>
                             </div>
-                            <a href="rsa.html" class="btn btn-primary">
+                            <a href="rsa.html" class="btn btn-primary" aria-label="Accéder au guide Exercices RSA">
                                 <span>Accéder au guide</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                                     <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </a>
                         </div>
-                    </div>
+                    </article>
                     
-                    <div class="guide-card" data-category="server">
+                    <!-- Carte SFTP -->
+                    <article class="guide-card" data-category="server" role="listitem">
                         <div class="card-header">
                             <span class="environment-badge server">Transfert</span>
-                            <div class="card-icon">📁</div>
+                            <div class="card-icon" aria-hidden="true">📁</div>
                         </div>
                         <div class="card-content">
                             <h3>Configuration SFTP</h3>
@@ -169,34 +181,35 @@
                                 <span class="difficulty-label">Niveau :</span>
                                 <span class="difficulty-value intermediate">Intermédiaire</span>
                             </div>
-                            <a href="sftp.html" class="btn btn-primary">
+                            <a href="sftp.html" class="btn btn-primary" aria-label="Accéder au guide Configuration SFTP">
                                 <span>Accéder au guide</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                                     <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </a>
                         </div>
-                    </div>
+                    </article>
                 </div>
             </section>
             
-            <section id="apropos" class="section about-section">
+            <!-- Section À propos -->
+            <section id="apropos" class="section about-section" aria-labelledby="about-heading">
                 <div class="about-content">
-                    <h2>À propos de ce portail</h2>
+                    <h2 id="about-heading">À propos de ce portail</h2>
                     <p>Ce portail a été créé pour rassembler des guides techniques de qualité sur l'administration système. Chaque guide est soigneusement rédigé et vérifié pour vous offrir le meilleur contenu.</p>
                     <div class="about-features">
                         <div class="feature">
-                            <div class="feature-icon">✅</div>
+                            <div class="feature-icon" aria-hidden="true">✅</div>
                             <h4>Contenu Vérifié</h4>
                             <p>Tous les guides sont testés et validés</p>
                         </div>
                         <div class="feature">
-                            <div class="feature-icon">🆓</div>
+                            <div class="feature-icon" aria-hidden="true">🆓</div>
                             <h4>Gratuit</h4>
                             <p>Accès libre à tous les contenus</p>
                         </div>
                         <div class="feature">
-                            <div class="feature-icon">📚</div>
+                            <div class="feature-icon" aria-hidden="true">📚</div>
                             <h4>Complet</h4>
                             <p>Des bases aux configurations avancées</p>
                         </div>
@@ -205,7 +218,8 @@
             </section>
         </main>
         
-        <footer>
+        <!-- Pied de page -->
+        <footer role="contentinfo">
             <div class="footer-content">
                 <p>Portail des guides techniques - Tous droits réservés</p>
                 <p class="footer-links">
@@ -226,9 +240,14 @@
             filterBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
                     // Retirer la classe active de tous les boutons
-                    filterBtns.forEach(b => b.classList.remove('active'));
+                    filterBtns.forEach(b => {
+                        b.classList.remove('active');
+                        b.setAttribute('aria-pressed', 'false');
+                    });
+                    
                     // Ajouter la classe active au bouton cliqué
                     this.classList.add('active');
+                    this.setAttribute('aria-pressed', 'true');
                     
                     const filter = this.getAttribute('data-filter');
                     
@@ -255,8 +274,13 @@
             navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    navLinks.forEach(l => l.classList.remove('active'));
+                    navLinks.forEach(l => {
+                        l.classList.remove('active');
+                        l.removeAttribute('aria-current');
+                    });
+                    
                     this.classList.add('active');
+                    this.setAttribute('aria-current', 'page');
                     
                     const targetId = this.getAttribute('href');
                     const targetSection = document.querySelector(targetId);
