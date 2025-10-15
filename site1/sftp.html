@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuration SFTP - Debian & Windows</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        h2 {
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 i {
+            margin-right: 10px;
+        }
+        
+        h3 {
+            color: var(--secondary-color);
+            margin: 20px 0 15px 0;
+            font-size: 1.4rem;
+        }
+        
+        .environment-badge {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .environment-badge.server {
+            background: var(--danger-color);
+        }
+        
+        .environment-badge.client {
+            background: var(--success-color);
+        }
+        
+        .architecture {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .server-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 200px;
+        }
+        
+        .server-card i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .arrow {
+            display: flex;
+            align-items: center;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+        
+        .checklist {
+            margin: 20px 0;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .checklist-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .checklist-item input[type="checkbox"] {
+            margin-right: 15px;
+            margin-top: 3px;
+            transform: scale(1.3);
+        }
+        
+        .checklist-content {
+            flex: 1;
+        }
+        
+        .checklist-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+        
+        .checklist-description {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+        
+        .code-block {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+            font-size: 0.9rem;
+            position: relative;
+        }
+        
+        .code-line {
+            margin: 4px 0;
+            padding: 2px 0;
+        }
+        
+        .code-comment {
+            color: #6a9955;
+            font-style: italic;
+            margin: 8px 0 4px 0;
+        }
+        
+        .code-command {
+            color: #d4d4d4;
+            margin: 4px 0;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .config-file {
+            background-color: #1e1e1e;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+            font-size: 0.9rem;
+            position: relative;
+        }
+        
+        .config-line {
+            margin: 4px 0;
+            padding: 2px 0;
+        }
+        
+        .config-added {
+            color: #7ec699;
+            font-weight: bold;
+            background-color: rgba(126, 198, 153, 0.1);
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+        
+        .config-comment {
+            color: #6a9955;
+            font-style: italic;
+        }
+        
+        .config-highlight {
+            color: #569cd6;
+            font-weight: bold;
+        }
+        
+        .note {
+            background-color: #e7f3ff;
+            border-left: 4px solid #4d90fe;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .warning {
+            background-color: #fff8e1;
+            border-left: 4px solid var(--warning-color);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .security {
+            background-color: #ffebee;
+            border-left: 4px solid var(--danger-color);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .progress-container {
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            height: 20px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, var(--success-color), #2ecc71);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease-in-out;
+            border-radius: 10px;
+        }
+        
+        .progress-text {
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .completed {
+            background-color: #e8f5e9;
+            border-left: 4px solid var(--success-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+        }
+        
+        .btn-success:hover {
+            background-color: #219653;
+        }
+        
+        .btn-reset {
+            background-color: var(--danger-color);
+        }
+        
+        .btn-reset:hover {
+            background-color: #c0392b;
+        }
+        
+        .connection-info {
+            background-color: #e8f4fc;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid var(--primary-color);
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .info-card {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .info-card strong {
+            color: var(--dark-color);
+        }
+        
+        .intro-box {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 6px solid var(--primary-color);
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .feature-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-item i {
+            color: var(--primary-color);
+            margin-right: 10px;
+        }
+        
+        .prerequisites {
+            background: #fff3cd;
+            border-left: 4px solid var(--warning-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .ufw-guide {
+            background: #e8f5e9;
+            border-left: 4px solid var(--success-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .command-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .command-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .command-card .command {
+            background: #2d2d2d;
+            color: #7ec699;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            display: block;
+            margin: 8px 0;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .architecture {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .arrow {
+                transform: rotate(90deg);
+                margin: 10px 0;
+            }
+            
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .command-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-server"></i> Configuration SFTP</h1>
+            <p class="subtitle">Guide complet pour configurer SFTP sur Debian (installation fraîche) et se connecter depuis Windows</p>
+        </header>
+        
+        <div class="content">
+            <div class="prerequisites">
+                <h3><i class="fas fa-exclamation-triangle"></i> Environnement de départ</h3>
+                <p><strong>Serveur Debian :</strong> Installation fraîche, aucune configuration préalable</p>
+                <p><strong>Configuration initiale :</strong> Accès root/SSH de base uniquement, pas de firewall, pas d'utilisateurs supplémentaires</p>
+            </div>
+
+            <div class="section">
+                <h2><i class="fas fa-tasks"></i> Progression de configuration</h2>
+                <div class="progress-text" id="progress-text">0% complété</div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                <div>
+                    <button class="btn btn-success" onclick="checkAll()"><i class="fas fa-check-double"></i> Tout cocher</button>
+                    <button class="btn btn-reset" onclick="uncheckAll()"><i class="fas fa-redo"></i> Tout décocher</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2><i class="fas fa-info-circle"></i> Qu'est-ce que SFTP ?</h2>
+                <div class="intro-box">
+                    <h3>SFTP (SSH File Transfer Protocol)</h3>
+                    <p><strong>SFTP</strong> est un protocole sécurisé de transfert de fichiers qui utilise SSH (Secure Shell) pour chiffrer toutes les données échangées entre le client et le serveur.</p>
+                    
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <strong>Sécurisé :</strong> Toutes les données sont chiffrées via SSH
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-key"></i>
+                            <strong>Authentification :</strong> Support des clés SSH et mots de passe
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-folder"></i>
+                            <strong>Intégration :</strong> Fonctionne avec les permissions Unix standards
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-plug"></i>
+                            <strong>Port unique :</strong> Utilise le port 22 SSH (pas besoin d'ouvrir d'autres ports)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2><i class="fas fa-shield-alt"></i> UFW - Uncomplicated Firewall</h2>
+                <div class="ufw-guide">
+                    <h3><i class="fas fa-fire"></i> Présentation d'UFW</h3>
+                    <p><strong>UFW (Uncomplicated Firewall)</strong> est une interface simplifiée pour iptables, le firewall natif de Linux. Il est conçu pour être facile à utiliser tout en restant puissant.</p>
+                    
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <strong>Simple :</strong> Commandes intuitives et faciles à retenir
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-bolt"></i>
+                            <strong>Rapide :</strong> Configuration rapide avec peu de commandes
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-eye"></i>
+                            <strong>Visible :</strong> Statut et règles facilement consultables
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-lock"></i>
+                            <strong>Sécurisé :</strong> Bloquer tout par défaut, autoriser explicitement
+                        </div>
+                    </div>
+
+                    <h4>Commandes UFW essentielles :</h4>
+                    <div class="command-grid">
+                        <div class="command-card">
+                            <strong>Statut et information</strong>
+                            <div class="command">ufw status</div>
+                            <div class="command">ufw status verbose</div>
+                            <div class="command">ufw status numbered</div>
+                        </div>
+                        
+                        <div class="command-card">
+                            <strong>Activation/Désactivation</strong>
+                            <div class="command">ufw enable</div>
+                            <div class="command">ufw disable</div>
+                            <div class="command">ufw reset</div>
+                        </div>
+                        
+                        <div class="command-card">
+                            <strong>Autoriser des services</strong>
+                            <div class="command">ufw allow ssh</div>
+                            <div class="command">ufw allow http</div>
+                            <div class="command">ufw allow https</div>
+                            <div class="command">ufw allow 2222/tcp</div>
+                        </div>
+                        
+                        <div class="command-card">
+                            <strong>Refuser/Supprimer</strong>
+                            <div class="command">ufw deny 23/tcp</div>
+                            <div class="command">ufw delete allow ssh</div>
+                            <div class="command">ufw delete 3</div>
+                        </div>
+                    </div>
+
+                    <div class="warning">
+                        <strong>⚠️ Attention :</strong> UFW bloque TOUT le trafic par défaut. Assurez-vous d'avoir autorisé SSH avant de l'activer, sinon vous perdrez l'accès à votre serveur !
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2><i class="fas fa-network-wired"></i> Architecture SFTP</h2>
+                <div class="architecture">
+                    <div class="server-card">
+                        <i class="fab fa-windows"></i>
+                        <h3>Client Windows</h3>
+                        <p>FileZilla</p>
+                        <span class="environment-badge client">Windows</span>
+                    </div>
+                    <div class="arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    <div class="server-card">
+                        <i class="fab fa-linux"></i>
+                        <h3>Serveur Debian</h3>
+                        <p>OpenSSH + SFTP</p>
+                        <span class="environment-badge server">Debian</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2><i class="fas fa-cogs"></i> Configuration du Serveur Debian</h2>
+                
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="step1" onchange="updateProgress()">
+                        <div class="checklist-content">
+                            <div class="checklist-title">
+                                <span class="environment-badge server">Serveur Debian</span>
+                                Connexion initiale et mise à jour
+                            </div>
+                            <div class="checklist-description">Se connecter au serveur et mettre à jour les paquets système</div>
+                            <div class="code-block">
+                                <div class="code-comment"># Se connecter en SSH au serveur (remplacez IP par votre adresse)</div>
+                                <div class="code-line"><span class="code-command">ssh root@votre_ip_serveur</span></div>
+                                <br>
+                                <div class="code-comment"># Mettre à jour la liste des paquets</div>
+                                <div class="code-line"><span class="code-command">apt update</span></div>
+                                <br>
+                                <div class="code-comment"># Mettre à niveau les paquets existants</div>
+                                <div class="code-line"><span class="code-command">apt upgrade -y</span></div>
+                                <button class="copy-btn" onclick="copyCommand(this, 'apt update && apt upgrade -y')">Copier</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <input type="checkbox" id="step2" onchange="updateProgress()">
+                        <div class="checklist-content">
+                            <div class="checklist-title">
+                                <span class="environment-badge server">Serveur Debian</span>
+                                Installation d'OpenSSH Server
+                            </div>
+                            <div class="checklist-description">OpenSSH n'est pas toujours installé par défaut - installation complète</div>
+                            <div class="code-block">
+                                <div class="code-comment"># Installation du serveur SSH (inclut SFTP)</div>
+                                <div class="code-line"><span class="code-command">apt install openssh-server -y</span></div>
+                                <button class="copy-btn" onclick="copyCommand(this, 'apt install openssh-server -y')">Copier</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <input type="checkbox" id="step3" onchange="updateProgress()">
+                        <div class="checklist-content">
+                            <div class="checklist-title">
+                                <span class="environment-badge server">Serveur Debian</span>
+                                Vérification du service SSH
+                            </div>
+                            <div class="checklist-description">Vérifier que le service est actif et configurer le démarrage automatique</div>
+                            <div class="code-block">
+                                <div class="code-comment"># Vérifier le statut du service</div>
+                                <div class="code-line"><span class="code-command">systemctl status ssh</span></div>
+                                <br>
+                                <div class="code-comment"># Activer le démarrage automatique au boot</div>
+                                <div class="code-line"><span class="code-command">systemctl enable ssh</span></div>
+                                <br>
+                                <div class="code-comment"># Redémarrer le service pour appliquer les changements</div>
+                                <div class="code-line"><span class="code-command">systemctl restart ssh</span></div>
+                                <button class="copy-btn" onclick="copyCommand(this, 'systemctl status ssh')">Copier</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <input type="checkbox" id="step4" onchange="updateProgress()">
+                        <div class="checklist-content">
+                            <div class="checklist-title">
+                                <span class="environment-badge server">Serveur Debian</span>
+                                Configuration du fichier SSH
+                            </div>
+                            <div class="checklist-description">Éditer la configuration SSH pour sécuriser et activer SFTP</div>
+                            <div class="code-block">
+                                <div class="code-comment"># Ouvrir le fichier de configuration SSH</div>
+                                <div class="code-line"><span class="code-command">nano /etc/ssh/sshd_config</span></div>
+                                <button class="copy-btn" onclick="copyCommand(this, 'nano /etc/ssh/sshd_config')">Copier</button>
+                            </div>
+                            <div class="config-file">
+                                <strong>Fichier : /etc/ssh/sshd_config - Modifications à apporter :</strong>
+                                <div class="config-line"><span class="config-comment"># Désactiver la connexion root (recherchez la ligne et modifiez)</span></div>
+                                <div class="config-line"><span class="config-added">PermitRootLogin no</span></div>
+                                <div class="config-line"><span class="config-comment"># S'assurer que l'authentification par mot de passe est activée</span></div>
+                                <div class="config-line"><span class="config-added">PasswordAuthentication yes</span></div>
+                                <div class="config-line"><span class="config-comment"># Vérifier que le sous-système SFTP est présent (généralement déjà là)</span></div>
+                                <div class="config-line"><span class="config-highlight">Subsystem sftp internal-sftp</span></div>
+                                <button class="copy-btn" onclick="copyCommand(this, 'PermitRootLogin no\nPasswordAuthentication yes\nSubsystem sftp internal-sftp')">Copier config</button>
+                            </div>
+                            <div class="note">
+                                <strong>Manipulation :</strong> Utilisez les flèches pour naviguer, modifiez les lignes, puis Ctrl+X, Y, Entrée pour sauvegarder
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <input type="checkbox" id="step5" onchange="updateProgress()">
+                        <div class="checklist-content">
+                            <div class="checklist-title">
+                                <span class="environment-badge server">Serveur Debian</span>
+                                Création d'un utilisateur dédié SFTP
+                            </div>
+                            <div class="checklist-description">Créer un utilisateur spécifique pour les transferts de fichiers (plus sécurisé que root)</div>
+                            <div class="code-block">
+                                <div class="code-comment"># Créer un nouvel utilisateur (répondez aux questions)</div>
+                                <div class="code-line"><span class="code-command">adduser sftpuser</span></div>
+                                <br>
+                                <div class="code-comment"># Créer le répertoire pour les uploads</div>
+                                <div class="code-line"><span class="code-command">mkdir -p /home/sftpuser/upload</span></div>
+                                <br>
+                                <div class="code-comment"># Configurer les permissions de sécurité</div>
+                                <div class="code-line"><span class="code-command">chown root:root /home/sftpuser</span></div>
+                                <div class="code-line"><span class="code-command">chmod 755 /home/sftpuser</span></div>
+                                <div class="code-line"><span class="code-command">chown sftpuser:sftpuser /home/sftpuser/upload</span></div>
+                                <button class="copy-btn" onclick="copyCommand(this, 'adduser sftpuser')">Copier</button>
+                            </div>
+                            <div class="note">
+                                <strong>À faire :</strong> Lors de la création de l'utilisateur, définissez un mot de passe fort et notez-le
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <input type="checkbox" id="step6" onchange="updateProgress()">
+                        <div class="checklist-content">
+                            <div class="checklist-title">
+                                <span class="environment-badge server">Serveur Debian</span>
+                                Configuration chroot pour SFTP
+                            </div>
+                            <div class="checklist-description">Restreindre l'utilisateur SFTP à son répertoire personnel pour plus de sécurité</div>
+                            <div class="config-file">
+                                <strong>Fichier : /etc/ssh/sshd_config - Ajouter à la fin du fichier :</strong>
+                                <div class="config-line"><span class="config-comment"># Configuration chroot pour l'utilisateur SFTP</span></div>
+                                <div class="config-line"><span class="config-added">Match User sftpuser</span></div>
+                                <div class="config-line"><span class="config-added">    ChrootDirectory /home/sftpuser</span></div>
+                                <div class="config-line"><span class="config-added">    ForceCommand internal-sftp</span></div>
+                                <div class="config-line"><span class="config-added">    PasswordAuthentication yes</span></div>
+                                <div class="config-line"><span class="config-added">    PermitTunnel no</span></div>
+                                <div class="config-line"><span class="config-added">    AllowAgentForwarding no</span></div>
+                                <div class="config-line"><span class="config-added">    AllowTcpForwarding no</span></div>
+                                <div class="config-line"><span class="config-added">    X11Forwarding no</span></div>
+                                <button class="copy-btn" onclick="copyCommand(this, 'Match User sftpuser\n    ChrootDirectory /home/sftpuser\n    ForceCommand internal-sftp\n    PasswordAuthentication yes\n    PermitTunnel no\n    AllowAgentForwarding no\n    AllowTcpForwarding no\n    X11Forwarding no')">Copier config</button>
+                            </div>
+                            <div class="security">
+                                <strong>Sécurité :</strong> Le chroot empêche l'utilisateur d'accéder au reste du système
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <input type="checkbox" id="step7" onchange="updateProgress()">
+                        <div class="checklist-content">
+                            <div class="checklist-title">
+                                <span class="environment-badge server">Serveur Debian</span>
+                                Application de la configuration
+                            </div>
+                            <div class="checklist-description">Redémarrer le service SSH pour prendre en compte les modifications</div>
+                            <div class="code-block">
+                                <div class="code-comment"># Redémarrer le service SSH</div>
+                                <div class="code-line"><span class="code-command">systemctl restart ssh</span></div>
+                                <button class="copy-btn" onclick="copyCommand(this, 'systemctl restart ssh')">Copier</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <input type="checkbox" id="step8" onchange="updateProgress()">
+                        <div class="checklist-content">
+                            <div class="checklist-title">
+                                <span class="environment-badge server">Serveur Debian</span>
+                                Installation et configuration d'UFW
+                            </div>
+                            <div class="checklist-description">UFW n'est pas installé par défaut - installation et configuration du firewall</div>
+                            <div class="code-block">
+                                <div class="code-comment"># Installation d'UFW (Uncomplicated Firewall)</div>
+                                <div class="code-line"><span class="code-command">apt install ufw -y</span></div>
+                                <br>
+                                <div class="code-comment"># Vérifier le statut avant activation (doit être "inactive")</div>
+                                <div class="code-line"><span class="code-command">ufw status</span></div>
+                                <br>
+                                <div class="code-comment"># Autoriser le port SSH (22) - ESSENTIEL avant activation!</div>
+                                <div class="code-line"><span class="code-command">ufw allow ssh</span></div>
+                                <br>
+                                <div class="code-comment"># Activer UFW (répondez 'y' à la confirmation)</div>
+                                <div class="code-line"><span class="code-command">ufw enable</span></div>
+                                <br>
+                                <div class="code-comment"># Vérifier les règles actives</div>
+                                <div class="code-line"><span class="code-command">ufw status verbose</span></div>
+                                <button class="copy-btn" onclick="copyCommand(this, 'apt install ufw -y')">Copier</button>
+                            </div>
+                            <div class="warning">
+                                <strong>⚠️ CRITIQUE :</strong> UFW bloque tous les ports par défaut. N'activez UFW qu'après avoir autorisé SSH, sinon vous perdrez l'accès à votre serveur !
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <input type="checkbox" id="step9" onchange="updateProgress()">
+                        <div class="checklist-content">
+                            <div class="checklist-title">
+                                <span class="environment-badge server">Serveur Debian</span>
+                                Commandes UFW utiles pour la gestion
+                            </div>
+                            <div class="checklist-description">Commandes supplémentaires pour gérer votre firewall UFW</div>
+                            <div class="code-block">
+                                <div class="code-comment"># Voir les règles avec numéros (utile pour suppression)</div>
+                                <div class="code-line"><span class="code-command">ufw status numbered</span></div>
+                                <br>
+                                <div class="code-comment"># Autoriser un port spécifique</div>
+                                <div class="code-line"><span class="code-command">ufw allow 8080/tcp</span></div>
+                                <br>
+                                <div class="code-comment"># Refuser un port</div>
+                                <div class="code-line"><span class="code-command">ufw deny 23/tcp</span></div>
+                                <br>
+                                <div class="code-comment"># Supprimer une règle par numéro</div>
+                                <div class="code-line"><span class="code-command">ufw delete 2</span></div>
+                                <br>
+                                <div class="code-comment"># Réinitialiser UFW (supprime toutes les règles)</div>
+                                <div class="code-line"><span class="code-command">ufw reset</span></div>
+                                <button class="copy-btn" onclick="copyCommand(this, 'ufw status numbered')">Copier</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2><i class="fas fa-shield-alt"></i> Sécurisation Avancée</h2>
+                
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="step10" onchange="updateProgress()">
+                        <div class="checklist-content">
+                            <div class="checklist-title">
+                                <span class="environment-badge server">Serveur Debian</span>
+                                Changer le port SSH
+                            </div>
+                            <div class="checklist-description">Utiliser un port non standard pour réduire les attaques automatisées</div>
+                            <div class="config-file">
+                                <strong>Fichier : /etc/ssh/sshd_config - Modifier :</strong>
+                                <div class="config-line"><span class="config-comment"># Changer le port SSH (décommentez la ligne Port si nécessaire)</span></div>
+                                <div class="config-line"><span class="config-added">Port 2222</span> <span class="config-comment"># Au lieu de 22</span></div>
+                                <button class="copy-btn" onclick="copyCommand(this, 'Port 2222')">Copier</button>
+                            </div>
+                            <div class="code-block">
+                                <div class="code-comment"># Après modification, mettre à jour UFW et redémarrer SSH</div>
+                                <div class="code-line"><span class="code-command">ufw allow 2222/tcp</span></div>
+                                <div class="code-line"><span class="code-command">ufw delete allow ssh</span></div>
+                                <div class="code-line"><span class="code-command">systemctl restart ssh</span></div>
+                                <button class="copy-btn" onclick="copyCommand(this, 'ufw allow 2222/tcp && ufw delete allow ssh && systemctl restart ssh')">Copier</button>
+                            </div>
+                            <div class="note">
+                                <strong>Note :</strong> Après cette modification, vous devrez spécifier le port dans vos connexions SSH : <code>ssh -p 2222 utilisateur@serveur</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2><i class="fab fa-windows"></i> Connexion depuis Windows</h2>
+                
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="step11" onchange="updateProgress()">
+                        <div class="checklist-content">
+                            <div class="checklist-title">
+                                <span class="environment-badge client">Client Windows</span>
+                                Téléchargement de FileZilla
+                            </div>
+                            <div class="checklist-description">Installer le client SFTP FileZilla sur Windows</div>
+                            <div class="code-block">
+                                <div class="code-comment"># Télécharger depuis le site officiel :</div>
+                                <div class="code-line"><span class="code-command">https://filezilla-project.org/</span></div>
+                                <button class="copy-btn" onclick="copyCommand(this, 'https://filezilla-project.org/')">Copier URL</button>
+                            </div>
+                            <div class="note">
+                                <strong>Manipulation :</strong> Téléchargez FileZilla Client, installez-le avec les paramètres par défaut
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <input type="checkbox" id="step12" onchange="updateProgress()">
+                        <div class="checklist-content">
+                            <div class="checklist-title">
+                                <span class="environment-badge client">Client Windows</span>
+                                Configuration de la connexion SFTP
+                            </div>
+                            <div class="checklist-description">Configurer FileZilla pour se connecter au serveur Debian</div>
+                            <div class="code-block">
+                                <div class="code-comment"># Dans FileZilla, configuration manuelle :</div>
+                                <div class="code-line"><span class="code-command">Hôte: [IP_du_serveur]</span></div>
+                                <div class="code-line"><span class="code-command">Identifiant: sftpuser</span></div>
+                                <div class="code-line"><span class="code-command">Mot de passe: [mot_de_passe_sftpuser]</span></div>
+                                <div class="code-line"><span class="code-command">Port: 22 (ou 2222 si modifié)</span></div>
+                                <button class="copy-btn" onclick="copyCommand(this, 'sftpuser')">Copier identifiant</button>
+                            </div>
+                            <div class="note">
+                                <strong>Manipulation :</strong> Dans FileZilla, allez dans Fichier → Gestionnaire de sites → Nouveau site, puis configurez les paramètres
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <input type="checkbox" id="step13" onchange="updateProgress()">
+                        <div class="checklist-content">
+                            <div class="checklist-title">
+                                <span class="environment-badge client">Client Windows</span>
+                                Test de connexion
+                            </div>
+                            <div class="checklist-description">Tester la connexion SFTP et vérifier l'accès aux fichiers</div>
+                            <div class="code-block">
+                                <div class="code-comment"># Étapes de test dans FileZilla :</div>
+                                <div class="code-line"><span class="code-command">1. Cliquer sur "Connexion rapide"</span></div>
+                                <div class="code-line"><span class="code-command">2. Vérifier que la connexion s'établit</span></div>
+                                <div class="code-line"><span class="code-command">3. Naviguer dans /upload</span></div>
+                                <div class="code-line"><span class="code-command">4. Tester un transfert de fichier</span></div>
+                                <button class="copy-btn" onclick="copyCommand(this, 'Test de connexion SFTP')">Copier</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2><i class="fas fa-vial"></i> Tests et Dépannage</h2>
+                
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="step14" onchange="updateProgress()">
+                        <div class="checklist-content">
+                            <div class="checklist-title">
+                                <span class="environment-badge server">Serveur Debian</span>
+                                Test depuis la ligne de commande
+                            </div>
+                            <div class="checklist-description">Tester la connexion SFTP directement depuis le serveur</div>
+                            <div class="code-block">
+                                <div class="code-comment"># Test local de connexion SFTP</div>
+                                <div class="code-line"><span class="code-command">sftp sftpuser@localhost</span></div>
+                                <br>
+                                <div class="code-comment"># Si ça fonctionne, taper 'exit' pour quitter</div>
+                                <div class="code-line"><span class="code-command">exit</span></div>
+                                <button class="copy-btn" onclick="copyCommand(this, 'sftp sftpuser@localhost')">Copier</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <input type="checkbox" id="step15" onchange="updateProgress()">
+                        <div class="checklist-content">
+                            <div class="checklist-title">
+                                <span class="environment-badge server">Serveur Debian</span>
+                                Vérification des logs
+                            </div>
+                            <div class="checklist-description">Consulter les logs en cas de problème de connexion</div>
+                            <div class="code-block">
+                                <div class="code-comment"># Surveiller les logs d'authentification en temps réel</div>
+                                <div class="code-line"><span class="code-command">tail -f /var/log/auth.log</span></div>
+                                <br>
+                                <div class="code-comment"># Voir les logs SSH spécifiques</div>
+                                <div class="code-line"><span class="code-command">journalctl -u ssh -f</span></div>
+                                <button class="copy-btn" onclick="copyCommand(this, 'tail -f /var/log/auth.log')">Copier</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Guide de configuration SFTP - Partie d'une installation Debian fraîche vers une configuration SFTP complète</p>
+            <p>Note: Testez chaque étape avant de passer à la suivante</p>
+        </footer>
+    </div>
+
+    <script>
+        // Liste de tous les IDs des cases à cocher
+        const checklistItems = [
+            'step1', 'step2', 'step3', 'step4', 'step5',
+            'step6', 'step7', 'step8', 'step9', 'step10',
+            'step11', 'step12', 'step13', 'step14', 'step15'
+        ];
+        
+        // Fonction pour copier une commande spécifique
+        function copyCommand(button, command) {
+            navigator.clipboard.writeText(command).then(() => {
+                // Animation de succès
+                const originalText = button.textContent;
+                button.textContent = '✓ Copié!';
+                button.style.background = 'var(--success-color)';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = '';
+                }, 2000);
+            }).catch(err => {
+                console.error('Erreur lors de la copie: ', err);
+                button.textContent = '❌ Erreur';
+                setTimeout(() => {
+                    button.textContent = 'Copier';
+                }, 2000);
+            });
+        }
+        
+        // Fonction pour mettre à jour la barre de progression
+        function updateProgress() {
+            const totalItems = checklistItems.length;
+            let completedItems = 0;
+            
+            checklistItems.forEach(id => {
+                if (document.getElementById(id).checked) {
+                    completedItems++;
+                }
+            });
+            
+            const percentage = (completedItems / totalItems) * 100;
+            document.getElementById('progress-bar').style.width = percentage + '%';
+            document.getElementById('progress-text').textContent = Math.round(percentage) + '% complété';
+            
+            // Mettre à jour l'apparence des éléments cochés
+            checklistItems.forEach(id => {
+                const item = document.getElementById(id).closest('.checklist-item');
+                if (document.getElementById(id).checked) {
+                    item.classList.add('completed');
+                } else {
+                    item.classList.remove('completed');
+                }
+            });
+        }
+        
+        // Fonction pour tout cocher
+        function checkAll() {
+            checklistItems.forEach(id => {
+                document.getElementById(id).checked = true;
+            });
+            updateProgress();
+        }
+        
+        // Fonction pour tout décocher
+        function uncheckAll() {
+            checklistItems.forEach(id => {
+                document.getElementById(id).checked = false;
+            });
+            updateProgress();
+        }
+        
+        // Initialiser la progression au chargement de la page
+        document.addEventListener('DOMContentLoaded', updateProgress);
+    </script>
+</body>
+</html>

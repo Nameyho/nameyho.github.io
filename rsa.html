@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercices RSA - Guide Complet</title>
+    <style>
+        :root {
+            --primary-color: #e44d26;
+            --secondary-color: #d14026;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --dark-color: #333;
+            --light-color: #f5f5f5;
+            --code-bg: #2d2d2d;
+            --code-color: #f8f8f2;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background-color: var(--dark-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        nav li {
+            margin: 0;
+        }
+        
+        nav a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            transition: background-color 0.3s;
+        }
+        
+        nav a:hover {
+            background-color: #444;
+        }
+        
+        .content {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: #f0f0f0;
+            padding: 2rem 1rem;
+            border-right: 1px solid #ddd;
+        }
+        
+        .sidebar h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar a {
+            color: #555;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .sidebar a:hover {
+            color: var(--primary-color);
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+            scroll-margin-top: 80px;
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #eee;
+        }
+        
+        h3 {
+            color: var(--secondary-color);
+            margin: 1.5rem 0 1rem 0;
+        }
+        
+        h4 {
+            color: var(--dark-color);
+            margin: 1rem 0 0.5rem 0;
+        }
+        
+        .exercise {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin-bottom: 2rem;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .exercise-title {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .exercise-title::before {
+            content: "•";
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-right: 10px;
+        }
+        
+        .question {
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+            border-left: 3px solid var(--warning-color);
+        }
+        
+        .formula {
+            background-color: #f0f7ff;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            font-family: 'Cambria Math', serif;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        
+        .step {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--success-color);
+        }
+        
+        .step-number {
+            display: inline-block;
+            background-color: var(--success-color);
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            margin-right: 10px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .code-block {
+            background-color: var(--code-bg);
+            color: var(--code-color);
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            line-height: 1.4;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 0.75rem;
+            text-align: center;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+            color: var(--dark-color);
+        }
+        
+        .tool {
+            background-color: #e8f4fc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border: 1px solid var(--primary-color);
+        }
+        
+        .tool-title {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .calculator {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .input-group {
+            margin-bottom: 1rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        button:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 4px;
+            background-color: #e8f5e9;
+            border-left: 4px solid var(--success-color);
+        }
+        
+        .note {
+            background-color: #fff8e1;
+            border-left: 4px solid var(--warning-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .warning {
+            background-color: #ffebee;
+            border-left: 4px solid var(--danger-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .definition {
+            background-color: #e3f2fd;
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #ddd;
+            }
+            
+            nav ul {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Exercices RSA - Guide Complet</h1>
+            <p class="subtitle">Apprenez à résoudre les problèmes de cryptographie RSA étape par étape</p>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="#exercice1">Exercice 1</a></li>
+                <li><a href="#exercice2">Exercice 2</a></li>
+                <li><a href="#exercice3">Exercice 3</a></li>
+                <li><a href="#exercice4">Exercice 4</a></li>
+                <li><a href="#outils">Outils</a></li>
+            </ul>
+        </nav>
+        
+        <div class="content">
+            <aside class="sidebar">
+                <h3>Sommaire</h3>
+                <ul>
+                    <li><a href="#introduction">Introduction au RSA</a></li>
+                    <li><a href="#concepts-cles">Concepts clés</a></li>
+                    <li><a href="#exercice1-a">Exercice 1 - Partie A</a></li>
+                    <li><a href="#exercice1-b">Exercice 1 - Partie B</a></li>
+                    <li><a href="#exercice1-c">Exercice 1 - Partie C</a></li>
+                    <li><a href="#exercice1-d">Exercice 1 - Partie D</a></li>
+                    <li><a href="#exercice2-1">Exercice 2 - Question 1</a></li>
+                    <li><a href="#exercice2-2">Exercice 2 - Question 2</a></li>
+                    <li><a href="#exercice2-3">Exercice 2 - Question 3</a></li>
+                    <li><a href="#exercice3-1">Exercice 3 - Question 1</a></li>
+                    <li><a href="#exercice3-2">Exercice 3 - Question 2</a></li>
+                    <li><a href="#exercice3-3">Exercice 3 - Question 3</a></li>
+                    <li><a href="#exercice4-1">Exercice 4 - Question 1</a></li>
+                    <li><a href="#exercice4-2">Exercice 4 - Question 2</a></li>
+                    <li><a href="#calculateur-rsa">Calculateur RSA</a></li>
+                    <li><a href="#chiffrement">Outil chiffrement</a></li>
+                </ul>
+            </aside>
+            
+            <main class="main-content">
+                <section id="introduction" class="section">
+                    <h2>Introduction au RSA</h2>
+                    <p>RSA (Rivest-Shamir-Adleman) est un algorithme de cryptographie asymétrique largement utilisé pour la transmission sécurisée de données. Il repose sur l'utilisation d'une paire de clés : une clé publique pour le chiffrement et une clé privée pour le déchiffrement.</p>
+                    
+                    <div id="concepts-cles" class="definition">
+                        <h3>Concepts clés du RSA</h3>
+                        <ul>
+                            <li><strong>N (module)</strong> : Produit de deux nombres premiers P et Q (N = P × Q)</li>
+                            <li><strong>T (indicatrice d'Euler)</strong> : T = (P-1) × (Q-1)</li>
+                            <li><strong>E (exposant public)</strong> : Nombre premier avec T, 1 < E < T</li>
+                            <li><strong>D (exposant privé)</strong> : Inverse modulaire de E modulo T (D × E ≡ 1 mod T)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="formula">
+                        <p>Chiffrement : C = M<sup>E</sup> mod N</p>
+                        <p>Déchiffrement : M = C<sup>D</sup> mod N</p>
+                    </div>
+                </section>
+                
+                <section id="exercice1" class="section">
+                    <h2>Exercice 1</h2>
+                    <div class="exercise">
+                        <div class="exercise-title">Énoncé</div>
+                        <p>On considère les valeurs P = 53, Q = 11 et E = 3.</p>
+                        
+                        <div id="exercice1-a" class="question">
+                            <h4>a) Calculez le module N</h4>
+                            <div class="step">
+                                <p><span class="step-number">1</span> Le module N est le produit des deux nombres premiers P et Q.</p>
+                                <div class="formula">N = P × Q</div>
+                                <p><span class="step-number">2</span> Application numérique :</p>
+                                <div class="formula">N = 53 × 11 = 583</div>
+                            </div>
+                        </div>
+                        
+                        <div id="exercice1-b" class="question">
+                            <h4>b) Calculez la fonction d'Euler T = (P-1)(Q-1)</h4>
+                            <div class="step">
+                                <p><span class="step-number">1</span> La fonction d'Euler T se calcule à partir de P et Q.</p>
+                                <div class="formula">T = (P-1) × (Q-1)</div>
+                                <p><span class="step-number">2</span> Application numérique :</p>
+                                <div class="formula">T = (53-1) × (11-1) = 52 × 10 = 520</div>
+                            </div>
+                        </div>
+                        
+                        <div id="exercice1-c" class="question">
+                            <h4>c) Calculez la valeur D de la clé privée</h4>
+                            <div class="step">
+                                <p><span class="step-number">1</span> D est l'inverse modulaire de E modulo T.</p>
+                                <div class="formula">D × E ≡ 1 mod T</div>
+                                <p><span class="step-number">2</span> Nous devons trouver D tel que :</p>
+                                <div class="formula">3 × D ≡ 1 mod 520</div>
+                                <p><span class="step-number">3</span> En utilisant l'algorithme d'Euclide étendu, on trouve :</p>
+                                <div class="formula">D = 347</div>
+                                <p>Car 3 × 347 = 1041 et 1041 mod 520 = 1</p>
+                            </div>
+                        </div>
+                        
+                        <div id="exercice1-d" class="question">
+                            <h4>d) Chiffrez JEVOUSAIME</h4>
+                            <div class="step">
+                                <p><span class="step-number">1</span> Conversion du texte en nombres :</p>
+                                <div class="code-block">J  E  V  O  U  S  A  I  M  E
+10 05 22 15 21 19 01 09 13 05</div>
+                                <p><span class="step-number">2</span> Chiffrement avec la formule C = M<sup>E</sup> mod N :</p>
+                                <div class="formula">Pour M=10 : C = 10<sup>3</sup> mod 583 = 1000 mod 583 = 417</div>
+                                <p>Répétez pour chaque valeur...</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="exercice2" class="section">
+                    <h2>Exercice 2</h2>
+                    <div class="exercise">
+                        <div class="exercise-title">Énoncé</div>
+                        <p>Connaissant la clé publique (N = 119, E = 5) de ce cryptogramme RSA :</p>
+                        <div class="code-block">090 086 036 067 032 001 003 031 059 031</div>
+                        
+                        <div id="exercice2-1" class="question">
+                            <h4>1. Calculez P et Q</h4>
+                            <div class="step">
+                                <p><span class="step-number">1</span> P et Q sont les facteurs premiers de N.</p>
+                                <div class="formula">N = P × Q = 119</div>
+                                <p><span class="step-number">2</span> Factorisation de 119 :</p>
+                                <div class="formula">119 = 7 × 17</div>
+                                <p>Donc P = 7 et Q = 17 (ou inversement)</p>
+                            </div>
+                        </div>
+                        
+                        <div id="exercice2-2" class="question">
+                            <h4>2. Calculez la clé secrète D</h4>
+                            <div class="step">
+                                <p><span class="step-number">1</span> Calcul de T :</p>
+                                <div class="formula">T = (P-1) × (Q-1) = (7-1) × (17-1) = 6 × 16 = 96</div>
+                                <p><span class="step-number">2</span> D est l'inverse modulaire de E modulo T :</p>
+                                <div class="formula">D × 5 ≡ 1 mod 96</div>
+                                <p><span class="step-number">3</span> En utilisant l'algorithme d'Euclide étendu :</p>
+                                <div class="formula">D = 77</div>
+                                <p>Car 5 × 77 = 385 et 385 mod 96 = 1</p>
+                            </div>
+                        </div>
+                        
+                        <div id="exercice2-3" class="question">
+                            <h4>3. Déchiffrez le cryptogramme</h4>
+                            <div class="step">
+                                <p><span class="step-number">1</span> Table de correspondance lettres-chiffres :</p>
+                                <div class="table-container">
+                                    <table>
+                                        <tr>
+                                            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th>
+                                        </tr>
+                                        <tr>
+                                            <td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td><td>K</td><td>L</td><td>M</td>
+                                        </tr>
+                                    </table>
+                                    <table>
+                                        <tr>
+                                            <th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>22</th><th>23</th><th>24</th><th>25</th><th>26</th>
+                                        </tr>
+                                        <tr>
+                                            <td>N</td><td>O</td><td>P</td><td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <p><span class="step-number">2</span> Déchiffrement avec la formule M = C<sup>D</sup> mod N :</p>
+                                <div class="formula">Pour C=90 : M = 90<sup>77</sup> mod 119</div>
+                                <p>Répétez pour chaque valeur du cryptogramme...</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="exercice3" class="section">
+                    <h2>Exercice 3</h2>
+                    <div class="exercise">
+                        <div class="exercise-title">Énoncé</div>
+                        <p>Bob choisit comme nombre premier P = 17 et Q = 19, comme exposant E = 5. Alice et lui se fixent un protocole RSA dans lequel les messages sont des nombres en base 10 que l'on code par bloc de 2 chiffres. Alice veut envoyer le message "462739".</p>
+                        
+                        <div id="exercice3-1" class="question">
+                            <h4>1. Donnez la clé publique de Bob</h4>
+                            <div class="step">
+                                <p><span class="step-number">1</span> Calcul de N :</p>
+                                <div class="formula">N = P × Q = 17 × 19 = 323</div>
+                                <p><span class="step-number">2</span> La clé publique est (N, E) :</p>
+                                <div class="formula">Clé publique : (323, 5)</div>
+                            </div>
+                        </div>
+                        
+                        <div id="exercice3-2" class="question">
+                            <h4>2. Donnez la clé secrète de Bob</h4>
+                            <div class="step">
+                                <p><span class="step-number">1</span> Calcul de T :</p>
+                                <div class="formula">T = (P-1) × (Q-1) = 16 × 18 = 288</div>
+                                <p><span class="step-number">2</span> Calcul de D (inverse modulaire de E modulo T) :</p>
+                                <div class="formula">D × 5 ≡ 1 mod 288</div>
+                                <p>D = 173 (car 5 × 173 = 865 et 865 mod 288 = 1)</div>
+                                <p><span class="step-number">3</span> La clé privée est (D, N) :</p>
+                                <div class="formula">Clé privée : (173, 323)</div>
+                            </div>
+                        </div>
+                        
+                        <div id="exercice3-3" class="question">
+                            <h4>3. Écrivez le message chiffré</h4>
+                            <div class="step">
+                                <p><span class="step-number">1</span> Le message "462739" est déjà en blocs de 2 chiffres : 46, 27, 39</p>
+                                <p><span class="step-number">2</span> Chiffrement avec C = M<sup>E</sup> mod N :</p>
+                                <div class="formula">
+                                    Pour M=46 : C = 46<sup>5</sup> mod 323 = 205,061,006 mod 323 = 229<br>
+                                    Pour M=27 : C = 27<sup>5</sup> mod 323 = 14,348,907 mod 323 = 272<br>
+                                    Pour M=39 : C = 39<sup>5</sup> mod 323 = 90,224,199 mod 323 = 119
+                                </div>
+                                <p><span class="step-number">3</span> Message chiffré :</p>
+                                <div class="formula">229 272 119</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="exercice4" class="section">
+                    <h2>Exercice 4</h2>
+                    <div class="exercise">
+                        <div class="exercise-title">Énoncé</div>
+                        <p>Bob utilise le protocole RSA et publie sa clé publique N = 187 et E = 3.</p>
+                        
+                        <div id="exercice4-1" class="question">
+                            <h4>1. Chiffrez le message m = 15 avec la clé publique de Bob</h4>
+                            <div class="step">
+                                <p><span class="step-number">1</span> Utilisation de la formule de chiffrement :</p>
+                                <div class="formula">C = M<sup>E</sup> mod N = 15<sup>3</sup> mod 187</div>
+                                <p><span class="step-number">2</span> Calcul :</p>
+                                <div class="formula">15<sup>3</sup> = 3375<br>3375 mod 187 = 3375 - 18×187 = 3375 - 3366 = 9</div>
+                                <p><span class="step-number">3</span> Message chiffré :</p>
+                                <div class="formula">C = 9</div>
+                            </div>
+                        </div>
+                        
+                        <div id="exercice4-2" class="question">
+                            <h4>2. En utilisant le fait que T = 160, retrouvez la factorisation de N</h4>
+                            <div class="step">
+                                <p><span class="step-number">1</span> On sait que T = (P-1)(Q-1) = 160 et N = P×Q = 187</p>
+                                <p><span class="step-number">2</span> On peut écrire le système :</p>
+                                <div class="formula">
+                                    P×Q = 187<br>
+                                    (P-1)(Q-1) = 160
+                                </div>
+                                <p><span class="step-number">3</span> Développons la deuxième équation :</p>
+                                <div class="formula">PQ - P - Q + 1 = 160</div>
+                                <p><span class="step-number">4</span> En remplaçant PQ par 187 :</p>
+                                <div class="formula">187 - P - Q + 1 = 160 ⇒ P + Q = 28</div>
+                                <p><span class="step-number">5</span> On cherche deux nombres dont la somme est 28 et le produit 187 :</p>
+                                <div class="formula">P et Q sont les solutions de x² - 28x + 187 = 0</div>
+                                <p><span class="step-number">6</span> Résolution : Δ = 28² - 4×187 = 784 - 748 = 36</p>
+                                <div class="formula">x = (28 ± 6)/2 ⇒ x₁ = 17, x₂ = 11</div>
+                                <p>Donc P = 17 et Q = 11 (ou inversement)</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="outils" class="section">
+                    <h2>Outils de calcul RSA</h2>
+                    
+                    <div id="calculateur-rsa" class="calculator">
+                        <h3>Calculateur RSA</h3>
+                        
+                        <div class="input-group">
+                            <label for="p-value">P (premier nombre premier) :</label>
+                            <input type="number" id="p-value" placeholder="Ex: 53">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="q-value">Q (deuxième nombre premier) :</label>
+                            <input type="number" id="q-value" placeholder="Ex: 11">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="e-value">E (exposant public) :</label>
+                            <input type="number" id="e-value" placeholder="Ex: 3">
+                        </div>
+                        
+                        <button onclick="calculateRSA()">Calculer les clés</button>
+                        
+                        <div id="rsa-result" class="result" style="display: none;">
+                            <h4>Résultats :</h4>
+                            <p id="n-result"></p>
+                            <p id="t-result"></p>
+                            <p id="d-result"></p>
+                            <p id="public-key"></p>
+                            <p id="private-key"></p>
+                        </div>
+                    </div>
+                    
+                    <div id="chiffrement" class="calculator">
+                        <h3>Chiffrement/Déchiffrement</h3>
+                        
+                        <div class="input-group">
+                            <label for="message">Message (nombre) :</label>
+                            <input type="number" id="message" placeholder="Ex: 15">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="n-crypto">N :</label>
+                            <input type="number" id="n-crypto" placeholder="Ex: 187">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="exponent">Exposant (E ou D) :</label>
+                            <input type="number" id="exponent" placeholder="Ex: 3">
+                        </div>
+                        
+                        <button onclick="encrypt()">Chiffrer</button>
+                        <button onclick="decrypt()">Déchiffrer</button>
+                        
+                        <div id="crypto-result" class="result" style="display: none;">
+                            <h4>Résultat :</h4>
+                            <p id="crypto-value"></p>
+                        </div>
+                    </div>
+                    
+                    <div class="note">
+                        <h3>Conseils pour résoudre les exercices RSA</h3>
+                        <ul>
+                            <li>Commencez toujours par calculer N = P × Q</li>
+                            <li>Calculez ensuite T = (P-1) × (Q-1)</li>
+                            <li>Vérifiez que E est premier avec T</li>
+                            <li>Utilisez l'algorithme d'Euclide étendu pour trouver D</li>
+                            <li>Pour les grands nombres, utilisez l'exponentiation modulaire</li>
+                        </ul>
+                    </div>
+                </section>
+            </main>
+        </div>
+        
+        <footer>
+            <p>Guide d'apprentissage RSA - Créé pour résoudre les exercices de cryptographie</p>
+        </footer>
+    </div>
+
+    <script>
+        // Fonction pour calculer l'inverse modulaire
+        function modInverse(a, m) {
+            a = (a % m + m) % m;
+            for (let x = 1; x < m; x++) {
+                if ((a * x) % m === 1) {
+                    return x;
+                }
+            }
+            return 1;
+        }
+        
+        // Fonction pour calculer les clés RSA
+        function calculateRSA() {
+            const p = parseInt(document.getElementById('p-value').value);
+            const q = parseInt(document.getElementById('q-value').value);
+            const e = parseInt(document.getElementById('e-value').value);
+            
+            if (!p || !q || !e) {
+                alert("Veuillez remplir tous les champs");
+                return;
+            }
+            
+            // Calculs RSA
+            const n = p * q;
+            const t = (p - 1) * (q - 1);
+            const d = modInverse(e, t);
+            
+            // Affichage des résultats
+            document.getElementById('n-result').textContent = `N = P × Q = ${p} × ${q} = ${n}`;
+            document.getElementById('t-result').textContent = `T = (P-1) × (Q-1) = ${p-1} × ${q-1} = ${t}`;
+            document.getElementById('d-result').textContent = `D = ${d} (car ${e} × ${d} = ${e*d} et ${e*d} mod ${t} = ${(e*d) % t})`;
+            document.getElementById('public-key').textContent = `Clé publique : (${n}, ${e})`;
+            document.getElementById('private-key').textContent = `Clé privée : (${d}, ${n})`;
+            
+            document.getElementById('rsa-result').style.display = 'block';
+        }
+        
+        // Fonction pour chiffrer un message
+        function encrypt() {
+            const message = parseInt(document.getElementById('message').value);
+            const n = parseInt(document.getElementById('n-crypto').value);
+            const exponent = parseInt(document.getElementById('exponent').value);
+            
+            if (!message || !n || !exponent) {
+                alert("Veuillez remplir tous les champs");
+                return;
+            }
+            
+            // Chiffrement : C = M^E mod N
+            const encrypted = BigInt(message) ** BigInt(exponent) % BigInt(n);
+            
+            document.getElementById('crypto-value').textContent = 
+                `Message chiffré : ${message}^${exponent} mod ${n} = ${encrypted}`;
+            document.getElementById('crypto-result').style.display = 'block';
+        }
+        
+        // Fonction pour déchiffrer un message
+        function decrypt() {
+            const message = parseInt(document.getElementById('message').value);
+            const n = parseInt(document.getElementById('n-crypto').value);
+            const exponent = parseInt(document.getElementById('exponent').value);
+            
+            if (!message || !n || !exponent) {
+                alert("Veuillez remplir tous les champs");
+                return;
+            }
+            
+            // Déchiffrement : M = C^D mod N
+            const decrypted = BigInt(message) ** BigInt(exponent) % BigInt(n);
+            
+            document.getElementById('crypto-value').textContent = 
+                `Message déchiffré : ${message}^${exponent} mod ${n} = ${decrypted}`;
+            document.getElementById('crypto-result').style.display = 'block';
+        }
+        
+        // Navigation fluide
+        document.querySelectorAll('nav a, .sidebar a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetSection.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
