@@ -47,7 +47,6 @@
             </aside>
             
             <main class="main-content">
-                <!-- Contenu de la page Apache -->
                 <section id="introduction" class="section">
                     <h2>Introduction à Apache</h2>
                     <p>Apache HTTP Server, souvent appelé simplement Apache, est le serveur web le plus utilisé dans le monde. Il est open-source, multiplateforme et extrêmement flexible grâce à son système de modules.</p>
@@ -57,8 +56,304 @@
                     </div>
                 </section>
                 
-                <!-- Autres sections de la page Apache -->
+                <section id="installation" class="section">
+                    <h2>Installation d'Apache</h2>
+                    <p>Cette section couvre l'installation d'Apache sur différents systèmes d'exploitation.</p>
+                    
+                    <section id="preparation" class="section">
+                        <h3>Préparation de l'environnement</h3>
+                        <p>Avant d'installer Apache, assurez-vous que votre système répond aux exigences suivantes :</p>
+                        
+                        <ul>
+                            <li>Système d'exploitation : Linux, Windows, macOS ou Unix</li>
+                            <li>Espace disque : Au moins 50 MB pour l'installation de base</li>
+                            <li>Mémoire RAM : 512 MB minimum (1 GB recommandé)</li>
+                            <li>Accès administrateur/root pour l'installation</li>
+                        </ul>
+                    </section>
+                    
+                    <section id="installation-linux" class="section">
+                        <h3>Installation sur Linux</h3>
+                        
+                        <div class="step">
+                            <h4><span class="step-number">1</span> Mise à jour du système</h4>
+                            <p>Commencez par mettre à jour votre système :</p>
+                            <div class="code-block">
+                                # Pour Debian/Ubuntu<br>
+                                sudo apt update && sudo apt upgrade<br><br>
+                                
+                                # Pour CentOS/RHEL/Fedora<br>
+                                sudo yum update
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <h4><span class="step-number">2</span> Installation d'Apache</h4>
+                            <p>Installez le paquet Apache :</p>
+                            <div class="code-block">
+                                # Debian/Ubuntu<br>
+                                sudo apt install apache2<br><br>
+                                
+                                # CentOS/RHEL<br>
+                                sudo yum install httpd<br><br>
+                                
+                                # Fedora<br>
+                                sudo dnf install httpd
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <h4><span class="step-number">3</span> Démarrage et activation</h4>
+                            <p>Démarrez le service Apache et activez-le au démarrage :</p>
+                            <div class="code-block">
+                                # Debian/Ubuntu<br>
+                                sudo systemctl start apache2<br>
+                                sudo systemctl enable apache2<br><br>
+                                
+                                # CentOS/RHEL/Fedora<br>
+                                sudo systemctl start httpd<br>
+                                sudo systemctl enable httpd
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <section id="installation-windows" class="section">
+                        <h3>Installation sur Windows</h3>
+                        
+                        <div class="step">
+                            <h4><span class="step-number">1</span> Téléchargement</h4>
+                            <p>Téléchargez Apache depuis le site officiel : <a href="https://httpd.apache.org/download.cgi" target="_blank">https://httpd.apache.org/download.cgi</a></p>
+                            <p>Choisissez la version appropriée pour Windows (généralement en .msi pour une installation facile).</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h4><span class="step-number">2</span> Installation</h4>
+                            <p>Exécutez le fichier d'installation et suivez les étapes :</p>
+                            <ul>
+                                <li>Acceptez les termes de la licence</li>
+                                <li>Renseignez les informations du serveur (Network Domain, Server Name, etc.)</li>
+                                <li>Choisissez le type d'installation (Typical recommandé)</li>
+                                <li>Sélectionnez le dossier d'installation</li>
+                                <li>Terminez l'installation</li>
+                            </ul>
+                        </div>
+                    </section>
+                </section>
                 
+                <section id="configuration" class="section">
+                    <h2>Configuration d'Apache</h2>
+                    <p>Cette section couvre la configuration de base d'Apache.</p>
+                    
+                    <section id="fichiers-config" class="section">
+                        <h3>Fichiers de configuration principaux</h3>
+                        
+                        <p>Apache utilise plusieurs fichiers de configuration :</p>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Fichier</th>
+                                    <th>Description</th>
+                                    <th>Emplacement typique</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>httpd.conf</td>
+                                    <td>Fichier de configuration principal</td>
+                                    <td>/etc/apache2/ (Linux)<br>C:\Apache24\conf\ (Windows)</td>
+                                </tr>
+                                <tr>
+                                    <td>apache2.conf</td>
+                                    <td>Fichier principal sur Debian/Ubuntu</td>
+                                    <td>/etc/apache2/apache2.conf</td>
+                                </tr>
+                                <tr>
+                                    <td>ports.conf</td>
+                                    <td>Configuration des ports d'écoute</td>
+                                    <td>/etc/apache2/ports.conf</td>
+                                </tr>
+                                <tr>
+                                    <td>sites-available/</td>
+                                    <td>Dossier contenant les configurations de sites disponibles</td>
+                                    <td>/etc/apache2/sites-available/</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                    
+                    <section id="directives-principales" class="section">
+                        <h3>Directives de configuration principales</h3>
+                        
+                        <h4>Directives globales</h4>
+                        <div class="code-block">
+                            # Utilisateur et groupe sous lesquels Apache s'exécute<br>
+                            User www-data<br>
+                            Group www-data<br><br>
+                            
+                            # Répertoire racine des serveurs<br>
+                            ServerRoot "/etc/apache2"<br><br>
+                            
+                            # Fichier de logs principaux<br>
+                            ErrorLog ${APACHE_LOG_DIR}/error.log<br>
+                            CustomLog ${APACHE_LOG_DIR}/access.log combined
+                        </div>
+                    </section>
+                </section>
+                
+                <section id="virtualhosts" class="section">
+                    <h2>Hôtes Virtuels</h2>
+                    <p>Les VirtualHosts permettent d'héberger plusieurs sites web sur un seul serveur Apache.</p>
+                    
+                    <section id="creation-vhost" class="section">
+                        <h3>Création d'un VirtualHost</h3>
+                        
+                        <div class="step">
+                            <h4><span class="step-number">1</span> Création du fichier de configuration</h4>
+                            <p>Créez un nouveau fichier dans <span class="command">/etc/apache2/sites-available/</span> :</p>
+                            <div class="code-block">
+                                sudo nano /etc/apache2/sites-available/monsite.conf
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <h4><span class="step-number">2</span> Configuration du VirtualHost</h4>
+                            <p>Ajoutez la configuration suivante :</p>
+                            <div class="code-block">
+                                &lt;VirtualHost *:80&gt;<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;ServerName monsite.com<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;ServerAlias www.monsite.com<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;ServerAdmin webmaster@monsite.com<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;DocumentRoot /var/www/monsite<br><br>
+                                
+                                &nbsp;&nbsp;&nbsp;&nbsp;ErrorLog ${APACHE_LOG_DIR}/monsite_error.log<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;CustomLog ${APACHE_LOG_DIR}/monsite_access.log combined<br>
+                                &lt;/VirtualHost&gt;
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                
+                <section id="securite" class="section">
+                    <h2>Sécurisation d'Apache</h2>
+                    <p>Cette section couvre les bonnes pratiques pour sécuriser votre serveur Apache.</p>
+                    
+                    <section id="ssl" class="section">
+                        <h3>Configuration SSL/TLS</h3>
+                        
+                        <div class="step">
+                            <h4><span class="step-number">1</span> Activation du module SSL</h4>
+                            <p>Activez le module SSL :</p>
+                            <div class="code-block">
+                                sudo a2enmod ssl<br>
+                                sudo systemctl restart apache2
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <section id="securite-base" class="section">
+                        <h3>Sécurisation de base</h3>
+                        
+                        <h4>Masquer la version d'Apache</h4>
+                        <div class="code-block">
+                            # Ajoutez cette directive dans votre configuration<br>
+                            ServerTokens Prod<br>
+                            ServerSignature Off
+                        </div>
+                    </section>
+                </section>
+                
+                <section id="performance" class="section">
+                    <h2>Optimisation des performances</h2>
+                    <p>Cette section couvre les techniques pour améliorer les performances d'Apache.</p>
+                    
+                    <section id="optimisation" class="section">
+                        <h3>Configuration MPM Prefork (PHP)</h3>
+                        <div class="code-block">
+                            &lt;IfModule mpm_prefork_module&gt;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;StartServers 5<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;MinSpareServers 5<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;MaxSpareServers 10<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;MaxRequestWorkers 150<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;MaxConnectionsPerChild 0<br>
+                            &lt;/IfModule&gt;
+                        </div>
+                    </section>
+                </section>
+                
+                <section id="modules" class="section">
+                    <h2>Gestion des modules</h2>
+                    <p>Apache utilise un système de modules pour étendre ses fonctionnalités.</p>
+                    
+                    <section id="modules-essentiels" class="section">
+                        <h3>Modules essentiels</h3>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Module</th>
+                                    <th>Description</th>
+                                    <th>Commande d'activation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>rewrite</td>
+                                    <td>Réécriture d'URL</td>
+                                    <td>sudo a2enmod rewrite</td>
+                                </tr>
+                                <tr>
+                                    <td>ssl</td>
+                                    <td>Support SSL/TLS</td>
+                                    <td>sudo a2enmod ssl</td>
+                                </tr>
+                                <tr>
+                                    <td>headers</td>
+                                    <td>Manipulation des en-têtes HTTP</td>
+                                    <td>sudo a2enmod headers</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                </section>
+                
+                <section id="troubleshooting" class="section">
+                    <h2>Dépannage</h2>
+                    <p>Cette section couvre les problèmes courants et leurs solutions.</p>
+                    
+                    <section id="logs" class="section">
+                        <h3>Consultation des logs</h3>
+                        <div class="code-block">
+                            sudo tail -f /var/log/apache2/error.log
+                        </div>
+                    </section>
+                    
+                    <section id="redemarrage" class="section">
+                        <h3>Redémarrage et rechargement</h3>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Commande</th>
+                                    <th>Description</th>
+                                    <th>Quand l'utiliser</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>systemctl restart apache2</td>
+                                    <td>Redémarre complètement Apache</td>
+                                    <td>Changements majeurs de configuration</td>
+                                </tr>
+                                <tr>
+                                    <td>systemctl reload apache2</td>
+                                    <td>Recharge la configuration sans interruption</td>
+                                    <td>Changements mineurs de configuration</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                </section>
             </main>
         </div>
         
@@ -66,5 +361,53 @@
             <p>Guide de configuration Apache - &copy; 2023 | Pour toute question, consultez la <a href="https://httpd.apache.org/docs/" style="color: #fff;">documentation officielle</a></p>
         </footer>
     </div>
+
+    <script>
+        // Script pour améliorer la navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ajouter un effet de défilement fluide
+            const navLinks = document.querySelectorAll('nav a, .sidebar a');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Mettre en surbrillance la section active dans la navigation
+            window.addEventListener('scroll', function() {
+                const sections = document.querySelectorAll('.section');
+                const navLinks = document.querySelectorAll('nav a');
+                
+                let currentSection = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+                        currentSection = '#' + section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === currentSection) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

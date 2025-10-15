@@ -443,6 +443,21 @@ footer {
     margin-top: 2rem;
 }
 
+/* Navigation active */
+nav a.active {
+    background-color: var(--primary-color);
+}
+
+/* Liens */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .content {
@@ -461,5 +476,9 @@ footer {
     
     h1 {
         font-size: 2rem;
+    }
+    
+    .main-content {
+        padding: 1rem;
     }
 }
