@@ -5,14 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Configuration Apache - Guide Complet</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <header>
             <div class="header-content">
-                <a href="index.html" class="home-button" title="Retour à l'accueil">🏠</a>
+                <a href="index.html" class="home-button" title="Retour à l'accueil">
+                    <i class="fas fa-home"></i>
+                </a>
                 <div class="title-container">
-                    <h1>Configuration Apache de A à Z</h1>
+                    <h1><i class="fas fa-server"></i> Configuration Apache de A à Z</h1>
                     <p class="subtitle">Guide complet pour installer, configurer et optimiser votre serveur web Apache</p>
                 </div>
             </div>
@@ -20,19 +23,20 @@
         
         <nav>
             <ul>
-                <li><a href="#installation">Installation</a></li>
-                <li><a href="#configuration">Configuration</a></li>
-                <li><a href="#virtualhosts">Hôtes Virtuels</a></li>
-                <li><a href="#securite">Sécurité</a></li>
-                <li><a href="#performance">Performance</a></li>
-                <li><a href="#modules">Modules</a></li>
-                <li><a href="#troubleshooting">Dépannage</a></li>
+                <li><a href="#introduction"><i class="fas fa-info-circle"></i> Introduction</a></li>
+                <li><a href="#installation"><i class="fas fa-download"></i> Installation</a></li>
+                <li><a href="#configuration"><i class="fas fa-cogs"></i> Configuration</a></li>
+                <li><a href="#virtualhosts"><i class="fas fa-globe"></i> Hôtes Virtuels</a></li>
+                <li><a href="#securite"><i class="fas fa-shield-alt"></i> Sécurité</a></li>
+                <li><a href="#performance"><i class="fas fa-tachometer-alt"></i> Performance</a></li>
+                <li><a href="#modules"><i class="fas fa-puzzle-piece"></i> Modules</a></li>
+                <li><a href="#troubleshooting"><i class="fas fa-wrench"></i> Dépannage</a></li>
             </ul>
         </nav>
         
         <div class="content">
             <aside class="sidebar">
-                <h3>Sommaire</h3>
+                <h3><i class="fas fa-list"></i> Sommaire</h3>
                 <ul>
                     <li><a href="#introduction">Introduction</a></li>
                     <li><a href="#preparation">Préparation</a></li>
@@ -52,7 +56,7 @@
             
             <main class="main-content">
                 <section id="introduction" class="section">
-                    <h2>Introduction à Apache</h2>
+                    <h2><i class="fas fa-info-circle"></i> Introduction à Apache</h2>
                     <p>Apache HTTP Server, souvent appelé simplement Apache, est le serveur web le plus utilisé dans le monde. Il est open-source, multiplateforme et extrêmement flexible grâce à son système de modules.</p>
                     
                     <div class="note">
@@ -61,11 +65,11 @@
                 </section>
                 
                 <section id="installation" class="section">
-                    <h2>Installation d'Apache</h2>
+                    <h2><i class="fas fa-download"></i> Installation d'Apache</h2>
                     <p>Cette section couvre l'installation d'Apache sur différents systèmes d'exploitation.</p>
                     
                     <section id="preparation" class="section">
-                        <h3>Préparation de l'environnement</h3>
+                        <h3><i class="fas fa-tools"></i> Préparation de l'environnement</h3>
                         <p>Avant d'installer Apache, assurez-vous que votre système répond aux exigences suivantes :</p>
                         
                         <ul>
@@ -77,7 +81,7 @@
                     </section>
                     
                     <section id="installation-linux" class="section">
-                        <h3>Installation sur Linux</h3>
+                        <h3><i class="fab fa-linux"></i> Installation sur Linux</h3>
                         
                         <div class="step">
                             <h4><span class="step-number">1</span> Mise à jour du système</h4>
@@ -122,7 +126,7 @@
                     </section>
                     
                     <section id="installation-windows" class="section">
-                        <h3>Installation sur Windows</h3>
+                        <h3><i class="fab fa-windows"></i> Installation sur Windows</h3>
                         
                         <div class="step">
                             <h4><span class="step-number">1</span> Téléchargement</h4>
@@ -145,11 +149,11 @@
                 </section>
                 
                 <section id="configuration" class="section">
-                    <h2>Configuration d'Apache</h2>
+                    <h2><i class="fas fa-cogs"></i> Configuration d'Apache</h2>
                     <p>Cette section couvre la configuration de base d'Apache.</p>
                     
                     <section id="fichiers-config" class="section">
-                        <h3>Fichiers de configuration principaux</h3>
+                        <h3><i class="fas fa-file-code"></i> Fichiers de configuration principaux</h3>
                         
                         <p>Apache utilise plusieurs fichiers de configuration :</p>
                         
@@ -187,7 +191,7 @@
                     </section>
                     
                     <section id="directives-principales" class="section">
-                        <h3>Directives de configuration principales</h3>
+                        <h3><i class="fas fa-sliders-h"></i> Directives de configuration principales</h3>
                         
                         <h4>Directives globales</h4>
                         <div class="code-block">
@@ -206,11 +210,11 @@
                 </section>
                 
                 <section id="virtualhosts" class="section">
-                    <h2>Hôtes Virtuels</h2>
+                    <h2><i class="fas fa-globe"></i> Hôtes Virtuels</h2>
                     <p>Les VirtualHosts permettent d'héberger plusieurs sites web sur un seul serveur Apache.</p>
                     
                     <section id="creation-vhost" class="section">
-                        <h3>Création d'un VirtualHost</h3>
+                        <h3><i class="fas fa-plus-circle"></i> Création d'un VirtualHost</h3>
                         
                         <div class="step">
                             <h4><span class="step-number">1</span> Création du fichier de configuration</h4>
@@ -239,11 +243,11 @@
                 </section>
                 
                 <section id="securite" class="section">
-                    <h2>Sécurisation d'Apache</h2>
+                    <h2><i class="fas fa-shield-alt"></i> Sécurisation d'Apache</h2>
                     <p>Cette section couvre les bonnes pratiques pour sécuriser votre serveur Apache.</p>
                     
                     <section id="ssl" class="section">
-                        <h3>Configuration SSL/TLS</h3>
+                        <h3><i class="fas fa-lock"></i> Configuration SSL/TLS</h3>
                         
                         <div class="step">
                             <h4><span class="step-number">1</span> Activation du module SSL</h4>
@@ -256,7 +260,7 @@
                     </section>
                     
                     <section id="securite-base" class="section">
-                        <h3>Sécurisation de base</h3>
+                        <h3><i class="fas fa-user-shield"></i> Sécurisation de base</h3>
                         
                         <h4>Masquer la version d'Apache</h4>
                         <div class="code-block">
@@ -268,11 +272,11 @@
                 </section>
                 
                 <section id="performance" class="section">
-                    <h2>Optimisation des performances</h2>
+                    <h2><i class="fas fa-tachometer-alt"></i> Optimisation des performances</h2>
                     <p>Cette section couvre les techniques pour améliorer les performances d'Apache.</p>
                     
                     <section id="optimisation" class="section">
-                        <h3>Configuration MPM Prefork (PHP)</h3>
+                        <h3><i class="fas fa-rocket"></i> Configuration MPM Prefork (PHP)</h3>
                         <div class="code-block">
                             &lt;IfModule mpm_prefork_module&gt;<br>
                             &nbsp;&nbsp;&nbsp;&nbsp;StartServers 5<br>
@@ -286,11 +290,11 @@
                 </section>
                 
                 <section id="modules" class="section">
-                    <h2>Gestion des modules</h2>
+                    <h2><i class="fas fa-puzzle-piece"></i> Gestion des modules</h2>
                     <p>Apache utilise un système de modules pour étendre ses fonctionnalités.</p>
                     
                     <section id="modules-essentiels" class="section">
-                        <h3>Modules essentiels</h3>
+                        <h3><i class="fas fa-star"></i> Modules essentiels</h3>
                         
                         <table>
                             <thead>
@@ -322,18 +326,18 @@
                 </section>
                 
                 <section id="troubleshooting" class="section">
-                    <h2>Dépannage</h2>
+                    <h2><i class="fas fa-wrench"></i> Dépannage</h2>
                     <p>Cette section couvre les problèmes courants et leurs solutions.</p>
                     
                     <section id="logs" class="section">
-                        <h3>Consultation des logs</h3>
+                        <h3><i class="fas fa-file-alt"></i> Consultation des logs</h3>
                         <div class="code-block">
                             sudo tail -f /var/log/apache2/error.log
                         </div>
                     </section>
                     
                     <section id="redemarrage" class="section">
-                        <h3>Redémarrage et rechargement</h3>
+                        <h3><i class="fas fa-sync-alt"></i> Redémarrage et rechargement</h3>
                         
                         <table>
                             <thead>
