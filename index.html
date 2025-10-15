@@ -3,67 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Configuration Apache - Guide Complet</title>
+    <title>Portail - Guides Techniques</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Configuration Apache de A à Z</h1>
-            <p class="subtitle">Guide complet pour installer, configurer et optimiser votre serveur web Apache</p>
+            <h1>Portail des Guides Techniques</h1>
+            <p class="subtitle">Accédez à tous nos guides d'administration système</p>
         </header>
         
         <nav>
             <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="#installation">Installation</a></li>
-                <li><a href="#configuration">Configuration</a></li>
-                <li><a href="#virtualhosts">Hôtes Virtuels</a></li>
-                <li><a href="#securite">Sécurité</a></li>
-                <li><a href="#performance">Performance</a></li>
-                <li><a href="#modules">Modules</a></li>
-                <li><a href="#troubleshooting">Dépannage</a></li>
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#guides">Guides</a></li>
             </ul>
         </nav>
         
-        <div class="content">
-            <aside class="sidebar">
-                <h3>Sommaire</h3>
-                <ul>
-                    <li><a href="#introduction">Introduction</a></li>
-                    <li><a href="#preparation">Préparation</a></li>
-                    <li><a href="#installation-linux">Installation sur Linux</a></li>
-                    <li><a href="#installation-windows">Installation sur Windows</a></li>
-                    <li><a href="#fichiers-config">Fichiers de configuration</a></li>
-                    <li><a href="#directives-principales">Directives principales</a></li>
-                    <li><a href="#creation-vhost">Création d'un VirtualHost</a></li>
-                    <li><a href="#ssl">Configuration SSL/TLS</a></li>
-                    <li><a href="#securite-base">Sécurisation de base</a></li>
-                    <li><a href="#optimisation">Optimisation des performances</a></li>
-                    <li><a href="#modules-essentiels">Modules essentiels</a></li>
-                    <li><a href="#logs">Gestion des logs</a></li>
-                    <li><a href="#redemarrage">Redémarrage et rechargement</a></li>
-                </ul>
-            </aside>
+        <main class="main-content">
+            <section id="accueil" class="section">
+                <h2>Bienvenue</h2>
+                <p>Ce portail vous donne accès à une collection de guides techniques pour l'administration système.</p>
+            </section>
             
-            <main class="main-content">
-                <!-- Contenu de la page Apache -->
-                <section id="introduction" class="section">
-                    <h2>Introduction à Apache</h2>
-                    <p>Apache HTTP Server, souvent appelé simplement Apache, est le serveur web le plus utilisé dans le monde. Il est open-source, multiplateforme et extrêmement flexible grâce à son système de modules.</p>
-                    
-                    <div class="note">
-                        <p><strong>Note :</strong> Ce guide couvre Apache 2.4, la version la plus récente et recommandée.</p>
+            <section id="guides" class="section">
+                <h2>Guides Disponibles</h2>
+                
+                <div class="feature-list">
+                    <div class="checklist-item">
+                        <div class="checklist-content">
+                            <div class="checklist-title">
+                                <span class="environment-badge server">Serveur Web</span>
+                                Configuration Apache
+                            </div>
+                            <div class="checklist-description">Guide complet pour installer, configurer et optimiser votre serveur web Apache</div>
+                            <a href="apache.html" class="btn">Accéder au guide</a>
+                        </div>
                     </div>
-                </section>
-                
-                <!-- Autres sections de la page Apache -->
-                
-            </main>
-        </div>
+                    
+                    <div class="checklist-item">
+                        <div class="checklist-content">
+                            <div class="checklist-title">
+                                <span class="environment-badge">Éditeur</span>
+                                Raccourcis Nano
+                            </div>
+                            <div class="checklist-description">Liste vérifiée des raccourcis clavier pour l'éditeur de texte Nano</div>
+                            <a href="nano.html" class="btn">Accéder au guide</a>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <div class="checklist-content">
+                            <div class="checklist-title">
+                                <span class="environment-badge">Cryptographie</span>
+                                Exercices RSA
+                            </div>
+                            <div class="checklist-description">Guide complet pour résoudre les problèmes de cryptographie RSA</div>
+                            <a href="rsa.html" class="btn">Accéder au guide</a>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <div class="checklist-content">
+                            <div class="checklist-title">
+                                <span class="environment-badge server">Transfert</span>
+                                Configuration SFTP
+                            </div>
+                            <div class="checklist-description">Guide complet pour configurer SFTP sur Debian et se connecter depuis Windows</div>
+                            <a href="sftp.html" class="btn">Accéder au guide</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
         
         <footer>
-            <p>Guide de configuration Apache - &copy; 2023 | Pour toute question, consultez la <a href="https://httpd.apache.org/docs/" style="color: #fff;">documentation officielle</a></p>
+            <p>Portail des guides techniques - Tous droits réservés</p>
         </footer>
     </div>
 </body>
