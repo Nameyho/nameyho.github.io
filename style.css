@@ -10,7 +10,7 @@
     --gradient-end: #764ba2;
     --sidebar-width: 280px;
     --header-height: 80px;
-    --nav-height: 60px;
+    --nav-height: 70px;
 }
 
 * {
@@ -59,17 +59,18 @@ header {
 
 .home-button {
     background: rgba(255, 255, 255, 0.2);
-    padding: 12px 16px;
+    padding: 12px 20px;
     border-radius: 12px;
     color: white;
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    font-weight: 500;
 }
 
 .home-button:hover {
@@ -96,21 +97,71 @@ h1 {
     font-weight: 300;
 }
 
-/* Navigation */
+/* Navigation Horizontale Améliorée */
 nav {
     background: linear-gradient(135deg, var(--dark-color), #34495e);
     padding: 0;
     height: var(--nav-height);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 20px;
+}
+
+.nav-home {
+    background: linear-gradient(135deg, var(--success-color), #2ecc71);
+    padding: 0 25px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-home:hover {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    box-shadow: inset 0 -3px 0 rgba(255, 255, 255, 0.5);
+}
+
+.nav-home i {
+    margin-right: 10px;
+    font-size: 1.1rem;
+}
+
+.nav-scroll-container {
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 100%;
+}
+
+.nav-scroll-container::-webkit-scrollbar {
+    height: 4px;
+}
+
+.nav-scroll-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-scroll-container::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 2px;
 }
 
 nav ul {
     display: flex;
     list-style: none;
-    justify-content: center;
-    flex-wrap: wrap;
     height: 100%;
     margin: 0;
+    min-width: max-content;
 }
 
 nav li {
@@ -121,18 +172,21 @@ nav li {
 nav a {
     color: white;
     text-decoration: none;
-    padding: 0 25px;
+    padding: 0 28px;
     display: flex;
     align-items: center;
     height: 100%;
     transition: all 0.3s ease;
     font-weight: 500;
-    gap: 8px;
+    gap: 12px;
     position: relative;
+    white-space: nowrap;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 nav a:hover {
     background: rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 -3px 0 var(--primary-color);
 }
 
 nav a::after {
@@ -300,6 +354,97 @@ h4 {
     gap: 10px;
 }
 
+/* Tableaux Élégants */
+.table-container {
+    margin: 25px 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    font-size: 0.95rem;
+}
+
+thead {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+th {
+    color: white;
+    padding: 18px 20px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 1rem;
+    position: relative;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+th:last-child {
+    border-right: none;
+}
+
+th i {
+    margin-right: 8px;
+    opacity: 0.9;
+}
+
+tbody tr {
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+tbody tr:hover {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    transform: translateX(5px);
+}
+
+td {
+    padding: 16px 20px;
+    border-right: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+}
+
+td:last-child {
+    border-right: none;
+}
+
+tbody tr:nth-child(even) {
+    background: #fafafa;
+}
+
+tbody tr:nth-child(even):hover {
+    background: linear-gradient(135deg, #f5f5f5, #eeeeee);
+}
+
+/* Style spécial pour les cellules de code dans les tableaux */
+td code {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* Tableaux avec en-têtes colorés */
+.table-success thead {
+    background: linear-gradient(135deg, var(--success-color), #2ecc71);
+}
+
+.table-warning thead {
+    background: linear-gradient(135deg, var(--warning-color), #f1c40f);
+}
+
+.table-danger thead {
+    background: linear-gradient(135deg, var(--danger-color), #e74c3c);
+}
+
 /* Step Styles */
 .step {
     margin-bottom: 35px;
@@ -395,41 +540,6 @@ h4 {
     margin: 0 2px;
 }
 
-/* Table Styles */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e0e0e0;
-}
-
-th {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    color: white;
-    padding: 16px 20px;
-    text-align: left;
-    font-weight: 600;
-    font-size: 1rem;
-}
-
-td {
-    padding: 14px 20px;
-    border-bottom: 1px solid #f0f0f0;
-    transition: background 0.3s ease;
-}
-
-tr:hover {
-    background: #f8f9fa;
-}
-
-tr:last-child td {
-    border-bottom: none;
-}
-
 /* Note and Warning Styles */
 .note {
     background: linear-gradient(135deg, #e7f3ff 0%, #d4e7ff 100%);
@@ -467,41 +577,6 @@ ul, ol {
 li {
     margin-bottom: 10px;
     line-height: 1.7;
-}
-
-/* Progress and Status */
-.progress-container {
-    background: #e9ecef;
-    border-radius: 10px;
-    height: 8px;
-    margin: 15px 0;
-    overflow: hidden;
-    position: relative;
-}
-
-.progress-bar {
-    background: linear-gradient(90deg, var(--success-color), #2ecc71);
-    height: 100%;
-    width: 0%;
-    transition: width 0.5s ease-in-out;
-    border-radius: 10px;
-    position: relative;
-}
-
-.progress-bar::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    animation: shimmer 2s infinite;
-}
-
-@keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
 }
 
 /* Footer */
@@ -545,6 +620,14 @@ footer a:hover {
         bottom: 0;
         background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
     }
+    
+    .nav-container {
+        padding: 0 10px;
+    }
+    
+    nav a {
+        padding: 0 20px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -578,14 +661,19 @@ footer a:hover {
         margin-bottom: 30px;
     }
     
-    nav ul {
-        flex-direction: column;
-        height: auto;
+    .nav-home {
+        padding: 0 15px;
+        font-size: 0.9rem;
+    }
+    
+    .nav-home i {
+        margin-right: 5px;
     }
     
     nav a {
-        padding: 15px 20px;
-        justify-content: center;
+        padding: 0 15px;
+        font-size: 0.9rem;
+        gap: 8px;
     }
     
     table {
@@ -599,107 +687,24 @@ footer a:hover {
     }
 }
 
-/* Scrollbar Styling */
-.sidebar::-webkit-scrollbar,
-.main-content::-webkit-scrollbar {
-    width: 6px;
+/* Animation pour les tableaux */
+@keyframes tableRowAppear {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
-.sidebar::-webkit-scrollbar-track,
-.main-content::-webkit-scrollbar-track {
-    background: #f1f1f1;
+tbody tr {
+    animation: tableRowAppear 0.5s ease-out;
 }
 
-.sidebar::-webkit-scrollbar-thumb,
-.main-content::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
-    border-radius: 3px;
-}
-
-.sidebar::-webkit-scrollbar-thumb:hover,
-.main-content::-webkit-scrollbar-thumb:hover {
-    background: var(--secondary-color);
-}
-
-/* Animation Classes */
-.fade-in {
-    animation: fadeIn 0.6s ease-in;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.slide-in-left {
-    animation: slideInLeft 0.6s ease-out;
-}
-
-@keyframes slideInLeft {
-    from { opacity: 0; transform: translateX(-30px); }
-    to { opacity: 1; transform: translateX(0); }
-}
-
-/* Badge Styles */
-.badge {
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    margin-left: 10px;
-}
-
-.badge-primary {
-    background: var(--primary-color);
-    color: white;
-}
-
-.badge-success {
-    background: var(--success-color);
-    color: white;
-}
-
-.badge-warning {
-    background: var(--warning-color);
-    color: white;
-}
-
-/* Card Grid for Features */
-.feature-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    margin: 25px 0;
-}
-
-.feature-card {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e9ecef;
-    transition: all 0.3s ease;
-    text-align: center;
-}
-
-.feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-}
-
-.feature-card i {
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    margin-bottom: 15px;
-}
-
-.feature-card h4 {
-    margin: 15px 0 10px 0;
-    color: var(--dark-color);
-}
-
-.feature-card p {
-    color: #666;
-    line-height: 1.6;
-}
+tbody tr:nth-child(1) { animation-delay: 0.1s; }
+tbody tr:nth-child(2) { animation-delay: 0.2s; }
+tbody tr:nth-child(3) { animation-delay: 0.3s; }
+tbody tr:nth-child(4) { animation-delay: 0.4s; }
+tbody tr:nth-child(5) { animation-delay: 0.5s; }

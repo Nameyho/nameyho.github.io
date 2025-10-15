@@ -14,26 +14,36 @@
             <div class="header-content">
                 <a href="index.html" class="home-button" title="Retour à l'accueil">
                     <i class="fas fa-arrow-left"></i>
-                    Accueil
+                    Retour à l'accueil
                 </a>
                 <div class="title-container">
                     <h1><i class="fas fa-server"></i> Configuration Apache de A à Z</h1>
                     <p class="subtitle">Guide complet pour installer, configurer et optimiser votre serveur web Apache</p>
                 </div>
-                <div style="width: 100px;"></div> <!-- Spacer pour l'alignement -->
+                <div style="width: 140px;"></div> <!-- Spacer pour l'alignement -->
             </div>
         </header>
         
+        <!-- Navigation Horizontale avec Bouton d'Accueil -->
         <nav>
-            <ul>
-                <li><a href="#introduction"><i class="fas fa-info-circle"></i> Introduction</a></li>
-                <li><a href="#installation"><i class="fas fa-download"></i> Installation</a></li>
-                <li><a href="#configuration"><i class="fas fa-cogs"></i> Configuration</a></li>
-                <li><a href="#virtualhosts"><i class="fas fa-globe"></i> VirtualHosts</a></li>
-                <li><a href="#securite"><i class="fas fa-shield-alt"></i> Sécurité</a></li>
-                <li><a href="#performance"><i class="fas fa-tachometer-alt"></i> Performance</a></li>
-                <li><a href="#modules"><i class="fas fa-puzzle-piece"></i> Modules</a></li>
-            </ul>
+            <div class="nav-container">
+                <a href="index.html" class="nav-home">
+                    <i class="fas fa-home"></i>
+                    Accueil
+                </a>
+                <div class="nav-scroll-container">
+                    <ul>
+                        <li><a href="#introduction"><i class="fas fa-info-circle"></i> Introduction</a></li>
+                        <li><a href="#installation"><i class="fas fa-download"></i> Installation</a></li>
+                        <li><a href="#configuration"><i class="fas fa-cogs"></i> Configuration</a></li>
+                        <li><a href="#virtualhosts"><i class="fas fa-globe"></i> VirtualHosts</a></li>
+                        <li><a href="#securite"><i class="fas fa-shield-alt"></i> Sécurité</a></li>
+                        <li><a href="#performance"><i class="fas fa-tachometer-alt"></i> Performance</a></li>
+                        <li><a href="#modules"><i class="fas fa-puzzle-piece"></i> Modules</a></li>
+                        <li><a href="#troubleshooting"><i class="fas fa-wrench"></i> Dépannage</a></li>
+                    </ul>
+                </div>
+            </div>
         </nav>
         
         <div class="content">
@@ -136,81 +146,67 @@
                                 sudo pacman -S apache
                             </div>
                         </div>
-                        
-                        <div class="step">
-                            <h4><span class="step-number">3</span> Démarrage et activation</h4>
-                            <p>Démarrez le service Apache et activez-le au démarrage :</p>
-                            <div class="code-block">
-                                # Debian/Ubuntu<br>
-                                sudo systemctl start apache2<br>
-                                sudo systemctl enable apache2<br>
-                                sudo systemctl status apache2<br><br>
-                                
-                                # CentOS/RHEL/Fedora<br>
-                                sudo systemctl start httpd<br>
-                                sudo systemctl enable httpd<br>
-                                sudo systemctl status httpd
-                            </div>
-                            <div class="note">
-                                <p><strong>✅ Vérification :</strong> Ouvrez votre navigateur et accédez à <code>http://localhost</code>. Vous devriez voir la page par défaut d'Apache.</p>
-                            </div>
-                        </div>
                     </section>
                     
-                    <section id="installation-windows" class="section">
-                        <h3><i class="fab fa-windows"></i> Installation sur Windows</h3>
-                        
-                        <div class="step">
-                            <h4><span class="step-number">1</span> Téléchargement</h4>
-                            <p>Téléchargez Apache depuis le site officiel :</p>
-                            <div class="code-block">
-                                https://httpd.apache.org/download.cgi
-                            </div>
-                            <p>Choisissez la version appropriée pour Windows (généralement le fichier <code>.msi</code> pour une installation facile).</p>
-                        </div>
-                        
-                        <div class="step">
-                            <h4><span class="step-number">2</span> Installation</h4>
-                            <p>Exécutez le fichier d'installation et suivez les étapes :</p>
-                            <ul>
-                                <li>Acceptez les termes de la licence</li>
-                                <li>Renseignez les informations du serveur :
-                                    <ul>
-                                        <li><strong>Network Domain :</strong> Votre domaine (ex: example.com)</li>
-                                        <li><strong>Server Name :</strong> Nom de votre serveur (ex: server.example.com)</li>
-                                        <li><strong>Administrator's Email :</strong> Votre email</li>
-                                    </ul>
-                                </li>
-                                <li>Choisissez le type d'installation (Typical recommandé)</li>
-                                <li>Sélectionnez le dossier d'installation</li>
-                                <li>Terminez l'installation</li>
-                            </ul>
-                        </div>
-                    </section>
+                    <!-- Tableau Élégant pour les Commandes -->
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th><i class="fas fa-cog"></i> Distribution</th>
+                                    <th><i class="fas fa-terminal"></i> Commande d'Installation</th>
+                                    <th><i class="fas fa-play"></i> Commande de Démarrage</th>
+                                    <th><i class="fas fa-check"></i> Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Debian/Ubuntu</strong></td>
+                                    <td><code>sudo apt install apache2 -y</code></td>
+                                    <td><code>sudo systemctl start apache2</code></td>
+                                    <td><i class="fas fa-check-circle" style="color: var(--success-color);"></i> Stable</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>CentOS/RHEL</strong></td>
+                                    <td><code>sudo yum install httpd -y</code></td>
+                                    <td><code>sudo systemctl start httpd</code></td>
+                                    <td><i class="fas fa-check-circle" style="color: var(--success-color);"></i> Stable</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Fedora</strong></td>
+                                    <td><code>sudo dnf install httpd -y</code></td>
+                                    <td><code>sudo systemctl start httpd</code></td>
+                                    <td><i class="fas fa-check-circle" style="color: var(--success-color);"></i> Stable</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Arch Linux</strong></td>
+                                    <td><code>sudo pacman -S apache</code></td>
+                                    <td><code>sudo systemctl start httpd</code></td>
+                                    <td><i class="fas fa-exclamation-triangle" style="color: var(--warning-color);"></i> Avancé</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </section>
                 
                 <section id="configuration" class="section fade-in">
                     <h2><i class="fas fa-cogs"></i> Configuration d'Apache</h2>
-                    <p>Cette section couvre la configuration de base d'Apache et les fichiers principaux.</p>
                     
-                    <section id="fichiers-config" class="section">
-                        <h3><i class="fas fa-file-code"></i> Fichiers de configuration principaux</h3>
-                        
-                        <p>Apache utilise une structure de fichiers de configuration organisée :</p>
-                        
-                        <table>
+                    <!-- Tableau des Fichiers de Configuration -->
+                    <div class="table-container">
+                        <table class="table-success">
                             <thead>
                                 <tr>
-                                    <th>Fichier/Dossier</th>
-                                    <th>Description</th>
-                                    <th>Emplacement typique</th>
+                                    <th><i class="fas fa-file"></i> Fichier/Dossier</th>
+                                    <th><i class="fas fa-info-circle"></i> Description</th>
+                                    <th><i class="fas fa-folder"></i> Emplacement</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td><code>httpd.conf</code></td>
                                     <td>Fichier de configuration principal</td>
-                                    <td><code>/etc/apache2/</code> (Linux)<br><code>C:\Apache24\conf\</code> (Windows)</td>
+                                    <td><code>/etc/apache2/</code> (Linux)</td>
                                 </tr>
                                 <tr>
                                     <td><code>apache2.conf</code></td>
@@ -232,225 +228,23 @@
                                     <td>Configurations de sites activés</td>
                                     <td><code>/etc/apache2/sites-enabled/</code></td>
                                 </tr>
-                                <tr>
-                                    <td><code>mods-available/</code></td>
-                                    <td>Modules disponibles</td>
-                                    <td><code>/etc/apache2/mods-available/</code></td>
-                                </tr>
-                                <tr>
-                                    <td><code>mods-enabled/</code></td>
-                                    <td>Modules activés</td>
-                                    <td><code>/etc/apache2/mods-enabled/</code></td>
-                                </tr>
                             </tbody>
                         </table>
-                    </section>
-                    
-                    <section id="directives-principales" class="section">
-                        <h3><i class="fas fa-sliders-h"></i> Directives de configuration principales</h3>
-                        
-                        <h4><i class="fas fa-cog"></i> Directives globales essentielles</h4>
-                        <div class="code-block">
-                            # Utilisateur et groupe sous lesquels Apache s'exécute<br>
-                            User www-data<br>
-                            Group www-data<br><br>
-                            
-                            # Répertoire racine des serveurs<br>
-                            ServerRoot "/etc/apache2"<br><br>
-                            
-                            # Fichier de logs principaux<br>
-                            ErrorLog ${APACHE_LOG_DIR}/error.log<br>
-                            CustomLog ${APACHE_LOG_DIR}/access.log combined<br><br>
-                            
-                            # Niveau de log<br>
-                            LogLevel warn<br><br>
-                            
-                            # Définir le timeout des connexions<br>
-                            Timeout 300<br>
-                            KeepAlive On<br>
-                            MaxKeepAliveRequests 100<br>
-                            KeepAliveTimeout 5
-                        </div>
-                        
-                        <div class="note">
-                            <p><strong>📝 Conseil :</strong> Utilisez <code>apache2ctl -t</code> ou <code>httpd -t</code> pour tester la syntaxe de votre configuration avant de redémarrer le service.</p>
-                        </div>
-                    </section>
-                </section>
-                
-                <section id="virtualhosts" class="section fade-in">
-                    <h2><i class="fas fa-globe"></i> Hôtes Virtuels (VirtualHosts)</h2>
-                    <p>Les VirtualHosts permettent d'héberger plusieurs sites web sur un seul serveur Apache.</p>
-                    
-                    <section id="creation-vhost" class="section">
-                        <h3><i class="fas fa-plus-circle"></i> Création d'un VirtualHost</h3>
-                        
-                        <div class="step">
-                            <h4><span class="step-number">1</span> Création du fichier de configuration</h4>
-                            <p>Créez un nouveau fichier dans <code>/etc/apache2/sites-available/</code> :</p>
-                            <div class="code-block">
-                                sudo nano /etc/apache2/sites-available/monsite.conf
-                            </div>
-                        </div>
-                        
-                        <div class="step">
-                            <h4><span class="step-number">2</span> Configuration du VirtualHost</h4>
-                            <p>Ajoutez la configuration suivante :</p>
-                            <div class="code-block">
-                                &lt;VirtualHost *:80&gt;<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;# Informations de base du serveur<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;ServerName monsite.com<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;ServerAlias www.monsite.com<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;ServerAdmin webmaster@monsite.com<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;DocumentRoot /var/www/monsite<br><br>
-                                
-                                &nbsp;&nbsp;&nbsp;&nbsp;# Configuration des répertoires<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&lt;Directory /var/www/monsite&gt;<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Options -Indexes +FollowSymLinks<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AllowOverride All<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Require all granted<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&lt;/Directory&gt;<br><br>
-                                
-                                &nbsp;&nbsp;&nbsp;&nbsp;# Logs personnalisés<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;ErrorLog ${APACHE_LOG_DIR}/monsite_error.log<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;CustomLog ${APACHE_LOG_DIR}/monsite_access.log combined<br>
-                                &lt;/VirtualHost&gt;
-                            </div>
-                        </div>
-                        
-                        <div class="step">
-                            <h4><span class="step-number">3</span> Activation du site</h4>
-                            <p>Activez le site et rechargez la configuration :</p>
-                            <div class="code-block">
-                                # Activer le site<br>
-                                sudo a2ensite monsite.conf<br><br>
-                                
-                                # Recharger Apache<br>
-                                sudo systemctl reload apache2<br><br>
-                                
-                                # Vérifier la configuration<br>
-                                sudo apache2ctl -t
-                            </div>
-                        </div>
-                    </section>
-                </section>
-                
-                <section id="securite" class="section fade-in">
-                    <h2><i class="fas fa-shield-alt"></i> Sécurisation d'Apache</h2>
-                    <p>Cette section couvre les bonnes pratiques pour sécuriser votre serveur Apache.</p>
-                    
-                    <section id="ssl" class="section">
-                        <h3><i class="fas fa-lock"></i> Configuration SSL/TLS</h3>
-                        
-                        <div class="step">
-                            <h4><span class="step-number">1</span> Activation du module SSL</h4>
-                            <p>Activez le module SSL :</p>
-                            <div class="code-block">
-                                sudo a2enmod ssl<br>
-                                sudo a2enmod rewrite<br>
-                                sudo systemctl restart apache2
-                            </div>
-                        </div>
-                        
-                        <div class="step">
-                            <h4><span class="step-number">2</span> Configuration HTTPS</h4>
-                            <p>Créez un VirtualHost pour le HTTPS :</p>
-                            <div class="code-block">
-                                &lt;VirtualHost *:443&gt;<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;ServerName monsite.com<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;DocumentRoot /var/www/monsite<br><br>
-                                
-                                &nbsp;&nbsp;&nbsp;&nbsp;# Configuration SSL<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;SSLEngine on<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;SSLCertificateFile /etc/ssl/certs/monsite.crt<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;SSLCertificateKeyFile /etc/ssl/private/monsite.key<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;SSLCertificateChainFile /etc/ssl/certs/ca-bundle.crt<br>
-                                &lt;/VirtualHost&gt;
-                            </div>
-                        </div>
-                    </section>
-                    
-                    <section id="securite-base" class="section">
-                        <h3><i class="fas fa-user-shield"></i> Sécurisation de base</h3>
-                        
-                        <h4><i class="fas fa-eye-slash"></i> Masquer la version d'Apache</h4>
-                        <div class="code-block">
-                            # Ajoutez ces directives dans votre configuration<br>
-                            ServerTokens Prod<br>
-                            ServerSignature Off<br><br>
-                            
-                            # Ou dans les en-têtes<br>
-                            Header always unset X-Powered-By<br>
-                            Header unset Server
-                        </div>
-                        
-                        <h4><i class="fas fa-ban"></i> Sécurisation des répertoires</h4>
-                        <div class="code-block">
-                            # Protéger les fichiers sensibles<br>
-                            &lt;Files ".ht*"&gt;<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;Require all denied<br>
-                            &lt;/Files&gt;<br><br>
-                            
-                            # Désactiver l'indexation des répertoires<br>
-                            Options -Indexes<br><br>
-                            
-                            # Limiter les méthodes HTTP<br>
-                            &lt;LimitExcept GET POST&gt;<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;Require all denied<br>
-                            &lt;/LimitExcept&gt;
-                        </div>
-                    </section>
-                </section>
-                
-                <section id="performance" class="section fade-in">
-                    <h2><i class="fas fa-tachometer-alt"></i> Optimisation des performances</h2>
-                    <p>Cette section couvre les techniques pour améliorer les performances d'Apache.</p>
-                    
-                    <section id="optimisation" class="section">
-                        <h3><i class="fas fa-rocket"></i> Configuration MPM (Multi-Processing Module)</h3>
-                        
-                        <h4>MPM Prefork (recommandé pour PHP)</h4>
-                        <div class="code-block">
-                            &lt;IfModule mpm_prefork_module&gt;<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;StartServers 5<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;MinSpareServers 5<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;MaxSpareServers 10<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;MaxRequestWorkers 150<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;MaxConnectionsPerChild 0<br>
-                            &lt;/IfModule&gt;
-                        </div>
-                        
-                        <h4>MPM Worker (pour les sites statiques)</h4>
-                        <div class="code-block">
-                            &lt;IfModule mpm_worker_module&gt;<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;StartServers 2<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;MinSpareThreads 25<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;MaxSpareThreads 75<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;ThreadsPerChild 25<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;MaxRequestWorkers 150<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;MaxConnectionsPerChild 0<br>
-                            &lt;/IfModule&gt;
-                        </div>
-                        
-                        <div class="note">
-                            <p><strong>⚡ Performance :</strong> Ajustez ces valeurs en fonction de votre mémoire RAM disponible. Chaque processus Apache peut utiliser 10-50MB de RAM.</p>
-                        </div>
-                    </section>
+                    </div>
                 </section>
                 
                 <section id="modules" class="section fade-in">
-                    <h2><i class="fas fa-puzzle-piece"></i> Gestion des modules</h2>
-                    <p>Apache utilise un système de modules modulaire pour étendre ses fonctionnalités.</p>
+                    <h2><i class="fas fa-puzzle-piece"></i> Modules Apache Essentiels</h2>
                     
-                    <section id="modules-essentiels" class="section">
-                        <h3><i class="fas fa-star"></i> Modules essentiels</h3>
-                        
-                        <table>
+                    <!-- Tableau des Modules avec Style Coloré -->
+                    <div class="table-container">
+                        <table class="table-warning">
                             <thead>
                                 <tr>
-                                    <th>Module</th>
-                                    <th>Description</th>
-                                    <th>Commande d'activation</th>
+                                    <th><i class="fas fa-puzzle-piece"></i> Module</th>
+                                    <th><i class="fas fa-info-circle"></i> Description</th>
+                                    <th><i class="fas fa-terminal"></i> Commande</th>
+                                    <th><i class="fas fa-star"></i> Priorité</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -458,121 +252,80 @@
                                     <td><code>rewrite</code></td>
                                     <td>Réécriture d'URL et redirections</td>
                                     <td><code>sudo a2enmod rewrite</code></td>
+                                    <td><i class="fas fa-star" style="color: gold;"></i> Élevée</td>
                                 </tr>
                                 <tr>
                                     <td><code>ssl</code></td>
                                     <td>Support SSL/TLS pour HTTPS</td>
                                     <td><code>sudo a2enmod ssl</code></td>
+                                    <td><i class="fas fa-star" style="color: gold;"></i> Élevée</td>
                                 </tr>
                                 <tr>
                                     <td><code>headers</code></td>
                                     <td>Manipulation des en-têtes HTTP</td>
                                     <td><code>sudo a2enmod headers</code></td>
+                                    <td><i class="fas fa-star" style="color: silver;"></i> Moyenne</td>
                                 </tr>
                                 <tr>
                                     <td><code>expires</code></td>
                                     <td>Contrôle du cache navigateur</td>
                                     <td><code>sudo a2enmod expires</code></td>
+                                    <td><i class="fas fa-star" style="color: silver;"></i> Moyenne</td>
                                 </tr>
                                 <tr>
                                     <td><code>deflate</code></td>
                                     <td>Compression GZIP</td>
                                     <td><code>sudo a2enmod deflate</code></td>
-                                </tr>
-                                <tr>
-                                    <td><code>cache</code></td>
-                                    <td>Système de cache</td>
-                                    <td><code>sudo a2enmod cache</code></td>
+                                    <td><i class="fas fa-star" style="color: silver;"></i> Moyenne</td>
                                 </tr>
                             </tbody>
                         </table>
-                        
-                        <div class="step">
-                            <h4><span class="step-number">1</span> Gestion des modules</h4>
-                            <p>Commandes utiles pour la gestion des modules :</p>
-                            <div class="code-block">
-                                # Lister les modules disponibles<br>
-                                sudo apache2ctl -M<br><br>
-                                
-                                # Activer un module<br>
-                                sudo a2enmod nom_du_module<br><br>
-                                
-                                # Désactiver un module<br>
-                                sudo a2dismod nom_du_module<br><br>
-                                
-                                # Recharger après modification<br>
-                                sudo systemctl reload apache2
-                            </div>
-                        </div>
-                    </section>
+                    </div>
                 </section>
                 
                 <section id="troubleshooting" class="section fade-in">
-                    <h2><i class="fas fa-wrench"></i> Dépannage et Maintenance</h2>
-                    <p>Cette section couvre les problèmes courants et leurs solutions.</p>
+                    <h2><i class="fas fa-wrench"></i> Commandes de Dépannage</h2>
                     
-                    <section id="logs" class="section">
-                        <h3><i class="fas fa-file-alt"></i> Consultation des logs</h3>
-                        <div class="code-block">
-                            # Logs d'erreur en temps réel<br>
-                            sudo tail -f /var/log/apache2/error.log<br><br>
-                            
-                            # Logs d'accès<br>
-                            sudo tail -f /var/log/apache2/access.log<br><br>
-                            
-                            # Rechercher des erreurs spécifiques<br>
-                            sudo grep -i error /var/log/apache2/error.log<br><br>
-                            
-                            # Logs avec journalctl<br>
-                            sudo journalctl -u apache2 -f
-                        </div>
-                    </section>
-                    
-                    <section id="redemarrage" class="section">
-                        <h3><i class="fas fa-sync-alt"></i> Redémarrage et rechargement</h3>
-                        
-                        <table>
+                    <!-- Tableau des Commandes de Dépannage -->
+                    <div class="table-container">
+                        <table class="table-danger">
                             <thead>
                                 <tr>
-                                    <th>Commande</th>
-                                    <th>Description</th>
-                                    <th>Impact</th>
+                                    <th><i class="fas fa-terminal"></i> Commande</th>
+                                    <th><i class="fas fa-info-circle"></i> Description</th>
+                                    <th><i class="fas fa-exclamation-triangle"></i> Utilisation</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td><code>systemctl restart apache2</code></td>
                                     <td>Redémarre complètement Apache</td>
-                                    <td>Interruption brève du service</td>
+                                    <td>Changements majeurs</td>
                                 </tr>
                                 <tr>
                                     <td><code>systemctl reload apache2</code></td>
                                     <td>Recharge la configuration</td>
-                                    <td>Aucune interruption</td>
+                                    <td>Changements mineurs</td>
                                 </tr>
                                 <tr>
-                                    <td><code>systemctl stop apache2</code></td>
-                                    <td>Arrête le service</td>
-                                    <td>Service indisponible</td>
+                                    <td><code>apache2ctl -t</code></td>
+                                    <td>Teste la syntaxe de configuration</td>
+                                    <td>Avant redémarrage</td>
                                 </tr>
                                 <tr>
-                                    <td><code>systemctl start apache2</code></td>
-                                    <td>Démarre le service</td>
-                                    <td>Service disponible</td>
+                                    <td><code>tail -f error.log</code></td>
+                                    <td>Surveille les logs d'erreur</td>
+                                    <td>Débogage en temps réel</td>
                                 </tr>
                             </tbody>
                         </table>
-                        
-                        <div class="warning">
-                            <p><strong>⚠️ Attention :</strong> Utilisez <code>apache2ctl -t</code> pour tester la configuration avant de redémarrer le service.</p>
-                        </div>
-                    </section>
+                    </div>
                 </section>
             </main>
         </div>
         
         <footer>
-            <p>Guide de configuration Apache - &copy; 2024 | Pour toute question, consultez la <a href="https://httpd.apache.org/docs/">documentation officielle</a></p>
+            <p>Guide de configuration Apache - &copy; 2024 | <a href="index.html">Retour à l'accueil</a></p>
         </footer>
     </div>
 
