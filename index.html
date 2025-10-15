@@ -5,6 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portail - Guides Techniques</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .guide-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--primary-color);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .guide-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .guide-info {
+            flex: 1;
+            margin-right: 2rem;
+        }
+        
+        .guide-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .guide-description {
+            color: #666;
+            margin: 0;
+        }
+        
+        .guide-action {
+            flex-shrink: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .guide-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .guide-info {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+            
+            .guide-action {
+                align-self: flex-end;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -29,47 +84,55 @@
             <section id="guides" class="section">
                 <h2>Guides Disponibles</h2>
                 
-                <div class="feature-list">
-                    <div class="checklist-item">
-                        <div class="checklist-content">
-                            <div class="checklist-title">
+                <div class="guide-list">
+                    <div class="guide-card">
+                        <div class="guide-info">
+                            <div class="guide-title">
                                 <span class="environment-badge server">Serveur Web</span>
-                                Configuration Apache
+                                <h3 style="margin: 0; color: var(--dark-color);">Configuration Apache</h3>
                             </div>
-                            <div class="checklist-description">Guide complet pour installer, configurer et optimiser votre serveur web Apache</div>
+                            <p class="guide-description">Guide complet pour installer, configurer et optimiser votre serveur web Apache</p>
+                        </div>
+                        <div class="guide-action">
                             <a href="apache.html" class="btn">Accéder au guide</a>
                         </div>
                     </div>
                     
-                    <div class="checklist-item">
-                        <div class="checklist-content">
-                            <div class="checklist-title">
+                    <div class="guide-card">
+                        <div class="guide-info">
+                            <div class="guide-title">
                                 <span class="environment-badge">Éditeur</span>
-                                Raccourcis Nano
+                                <h3 style="margin: 0; color: var(--dark-color);">Raccourcis Nano</h3>
                             </div>
-                            <div class="checklist-description">Liste vérifiée des raccourcis clavier pour l'éditeur de texte Nano</div>
+                            <p class="guide-description">Liste vérifiée des raccourcis clavier pour l'éditeur de texte Nano</p>
+                        </div>
+                        <div class="guide-action">
                             <a href="nano.html" class="btn">Accéder au guide</a>
                         </div>
                     </div>
                     
-                    <div class="checklist-item">
-                        <div class="checklist-content">
-                            <div class="checklist-title">
+                    <div class="guide-card">
+                        <div class="guide-info">
+                            <div class="guide-title">
                                 <span class="environment-badge">Cryptographie</span>
-                                Exercices RSA
+                                <h3 style="margin: 0; color: var(--dark-color);">Exercices RSA</h3>
                             </div>
-                            <div class="checklist-description">Guide complet pour résoudre les problèmes de cryptographie RSA</div>
+                            <p class="guide-description">Guide complet pour résoudre les problèmes de cryptographie RSA</p>
+                        </div>
+                        <div class="guide-action">
                             <a href="rsa.html" class="btn">Accéder au guide</a>
                         </div>
                     </div>
                     
-                    <div class="checklist-item">
-                        <div class="checklist-content">
-                            <div class="checklist-title">
+                    <div class="guide-card">
+                        <div class="guide-info">
+                            <div class="guide-title">
                                 <span class="environment-badge server">Transfert</span>
-                                Configuration SFTP
+                                <h3 style="margin: 0; color: var(--dark-color);">Configuration SFTP</h3>
                             </div>
-                            <div class="checklist-description">Guide complet pour configurer SFTP sur Debian et se connecter depuis Windows</div>
+                            <p class="guide-description">Guide complet pour configurer SFTP sur Debian et se connecter depuis Windows</p>
+                        </div>
+                        <div class="guide-action">
                             <a href="sftp.html" class="btn">Accéder au guide</a>
                         </div>
                     </div>
