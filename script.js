@@ -1,45 +1,72 @@
-// Script pour améliorer la navigation
-document.addEventListener('DOMContentLoaded', function() {
-    // Ajouter un effet de défilement fluide
-    const navLinks = document.querySelectorAll('nav a, .sidebar a');
+// Liste de tous les IDs des cases à cocher
+const checklistItems = [
+    'step1', 'step2', 'step3', 'step4', 'step5',
+    'step6', 'step7', 'step8', 'step9', 'step10',
+    'step11', 'step12', 'step13', 'step14', 'step15'
+];
+
+// Fonction pour copier une commande spécifique
+function copyCommand(button, command) {
+    navigator.clipboard.writeText(command).then(() => {
+        // Animation de succès
+        const originalText = button.textContent;
+        button.textContent = '✓ Copié!';
+        button.style.background = 'var(--success-color)';
+        
+        setTimeout(() => {
+            button.textContent = originalText;
+            button.style.background = '';
+        }, 2000);
+    }).catch(err => {
+        console.error('Erreur lors de la copie: ', err);
+        button.textContent = '❌ Erreur';
+        setTimeout(() => {
+            button.textContent = 'Copier';
+        }, 2000);
+    });
+}
+
+// Fonction pour mettre à jour la barre de progression
+function updateProgress() {
+    const totalItems = checklistItems.length;
+    let completedItems = 0;
     
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-            
-            if (targetSection) {
-                window.scrollTo({
-                    top: targetSection.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-            }
-        });
+    checklistItems.forEach(id => {
+        if (document.getElementById(id).checked) {
+            completedItems++;
+        }
     });
     
-    // Mettre en surbrillance la section active dans la navigation
-    window.addEventListener('scroll', function() {
-        const sections = document.querySelectorAll('.section');
-        const navLinks = document.querySelectorAll('nav a');
-        
-        let currentSection = '';
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop - 100;
-            const sectionHeight = section.clientHeight;
-            
-            if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
-                currentSection = '#' + section.getAttribute('id');
-            }
-        });
-        
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === currentSection) {
-                link.classList.add('active');
-            }
-        });
+    const percentage = (completedItems / totalItems) * 100;
+    document.getElementById('progress-bar').style.width = percentage + '%';
+    document.getElementById('progress-text').textContent = Math.round(percentage) + '% complété';
+    
+    // Mettre à jour l'apparence des éléments cochés
+    checklistItems.forEach(id => {
+        const item = document.getElementById(id).closest('.checklist-item');
+        if (document.getElementById(id).checked) {
+            item.classList.add('completed');
+        } else {
+            item.classList.remove('completed');
+        }
     });
-});
+}
+
+// Fonction pour tout cocher
+function checkAll() {
+    checklistItems.forEach(id => {
+        document.getElementById(id).checked = true;
+    });
+    updateProgress();
+}
+
+// Fonction pour tout décocher
+function uncheckAll() {
+    checklistItems.forEach(id => {
+        document.getElementById(id).checked = false;
+    });
+    updateProgress();
+}
+
+// Initialiser la progression au chargement de la page
+document.addEventListener('DOMContentLoaded', updateProgress);

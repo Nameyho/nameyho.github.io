@@ -5,135 +5,200 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portail - Guides Techniques</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .guide-card {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            border-left: 4px solid var(--primary-color);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        
-        .guide-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        }
-        
-        .guide-info {
-            flex: 1;
-            margin-right: 2rem;
-        }
-        
-        .guide-title {
-            display: flex;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-        
-        .guide-description {
-            color: #666;
-            margin: 0;
-        }
-        
-        .guide-action {
-            flex-shrink: 0;
-        }
-        
-        @media (max-width: 768px) {
-            .guide-card {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .guide-info {
-                margin-right: 0;
-                margin-bottom: 1rem;
-            }
-            
-            .guide-action {
-                align-self: flex-end;
-            }
-        }
-    </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Portail des Guides Techniques</h1>
-            <p class="subtitle">Accédez à tous nos guides d'administration système</p>
+            <div class="header-content">
+                <div class="header-text">
+                    <h1>Portail des Guides Techniques</h1>
+                    <p class="subtitle">Accédez à tous nos guides d'administration système</p>
+                </div>
+                <div class="header-decoration">
+                    <div class="decoration-circle"></div>
+                    <div class="decoration-circle"></div>
+                    <div class="decoration-circle"></div>
+                </div>
+            </div>
         </header>
         
         <nav>
             <ul>
-                <li><a href="#accueil">Accueil</a></li>
-                <li><a href="#guides">Guides</a></li>
+                <li><a href="#accueil" class="nav-link active">Accueil</a></li>
+                <li><a href="#guides" class="nav-link">Guides</a></li>
+                <li><a href="#apropos" class="nav-link">À propos</a></li>
             </ul>
         </nav>
         
         <main class="main-content">
-            <section id="accueil" class="section">
-                <h2>Bienvenue</h2>
-                <p>Ce portail vous donne accès à une collection de guides techniques pour l'administration système.</p>
+            <section id="accueil" class="section hero-section">
+                <div class="hero-content">
+                    <h2>Bienvenue sur le Portail Technique</h2>
+                    <p>Découvrez notre collection complète de guides techniques pour l'administration système, soigneusement élaborés pour vous accompagner dans vos projets.</p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">4</span>
+                            <span class="stat-label">Guides disponibles</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Gratuits</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">✓</span>
+                            <span class="stat-label">Vérifiés</span>
+                        </div>
+                    </div>
+                </div>
             </section>
             
             <section id="guides" class="section">
-                <h2>Guides Disponibles</h2>
+                <div class="section-header">
+                    <h2>Guides Disponibles</h2>
+                    <p>Explorez nos guides techniques par catégorie</p>
+                </div>
                 
-                <div class="guide-list">
-                    <div class="guide-card">
-                        <div class="guide-info">
-                            <div class="guide-title">
-                                <span class="environment-badge server">Serveur Web</span>
-                                <h3 style="margin: 0; color: var(--dark-color);">Configuration Apache</h3>
-                            </div>
-                            <p class="guide-description">Guide complet pour installer, configurer et optimiser votre serveur web Apache</p>
+                <div class="category-filters">
+                    <button class="filter-btn active" data-filter="all">Tous</button>
+                    <button class="filter-btn" data-filter="server">Serveurs</button>
+                    <button class="filter-btn" data-filter="security">Sécurité</button>
+                    <button class="filter-btn" data-filter="editor">Éditeurs</button>
+                </div>
+                
+                <div class="guide-grid">
+                    <div class="guide-card" data-category="server">
+                        <div class="card-header">
+                            <span class="environment-badge server">Serveur Web</span>
+                            <div class="card-icon">🌐</div>
                         </div>
-                        <div class="guide-action">
-                            <a href="apache.html" class="btn">Accéder au guide</a>
+                        <div class="card-content">
+                            <h3>Configuration Apache</h3>
+                            <p class="guide-description">Guide complet pour installer, configurer et optimiser votre serveur web Apache avec les meilleures pratiques.</p>
+                            <ul class="feature-list">
+                                <li>Installation multi-plateforme</li>
+                                <li>Hôtes virtuels</li>
+                                <li>Optimisation performance</li>
+                            </ul>
+                        </div>
+                        <div class="card-footer">
+                            <div class="difficulty">
+                                <span class="difficulty-label">Niveau :</span>
+                                <span class="difficulty-value intermediate">Intermédiaire</span>
+                            </div>
+                            <a href="apache.html" class="btn btn-primary">
+                                <span>Accéder au guide</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
                         </div>
                     </div>
                     
-                    <div class="guide-card">
-                        <div class="guide-info">
-                            <div class="guide-title">
-                                <span class="environment-badge">Éditeur</span>
-                                <h3 style="margin: 0; color: var(--dark-color);">Raccourcis Nano</h3>
-                            </div>
-                            <p class="guide-description">Liste vérifiée des raccourcis clavier pour l'éditeur de texte Nano</p>
+                    <div class="guide-card" data-category="editor">
+                        <div class="card-header">
+                            <span class="environment-badge editor">Éditeur</span>
+                            <div class="card-icon">⌨️</div>
                         </div>
-                        <div class="guide-action">
-                            <a href="nano.html" class="btn">Accéder au guide</a>
+                        <div class="card-content">
+                            <h3>Raccourcis Nano</h3>
+                            <p class="guide-description">Liste complète et vérifiée des raccourcis clavier pour l'éditeur de texte Nano en environnement terminal.</p>
+                            <ul class="feature-list">
+                                <li>Raccourcis essentiels</li>
+                                <li>Tips & astuces</li>
+                                <li>Configuration avancée</li>
+                            </ul>
+                        </div>
+                        <div class="card-footer">
+                            <div class="difficulty">
+                                <span class="difficulty-label">Niveau :</span>
+                                <span class="difficulty-value beginner">Débutant</span>
+                            </div>
+                            <a href="nano.html" class="btn btn-primary">
+                                <span>Accéder au guide</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
                         </div>
                     </div>
                     
-                    <div class="guide-card">
-                        <div class="guide-info">
-                            <div class="guide-title">
-                                <span class="environment-badge">Cryptographie</span>
-                                <h3 style="margin: 0; color: var(--dark-color);">Exercices RSA</h3>
-                            </div>
-                            <p class="guide-description">Guide complet pour résoudre les problèmes de cryptographie RSA</p>
+                    <div class="guide-card" data-category="security">
+                        <div class="card-header">
+                            <span class="environment-badge security">Cryptographie</span>
+                            <div class="card-icon">🔐</div>
                         </div>
-                        <div class="guide-action">
-                            <a href="rsa.html" class="btn">Accéder au guide</a>
+                        <div class="card-content">
+                            <h3>Exercices RSA</h3>
+                            <p class="guide-description">Guide pratique pour résoudre les problèmes de cryptographie RSA avec des exemples concrets et explications détaillées.</p>
+                            <ul class="feature-list">
+                                <li>Théorie RSA</li>
+                                <li>Exercices pratiques</li>
+                                <li>Solutions détaillées</li>
+                            </ul>
+                        </div>
+                        <div class="card-footer">
+                            <div class="difficulty">
+                                <span class="difficulty-label">Niveau :</span>
+                                <span class="difficulty-value advanced">Avancé</span>
+                            </div>
+                            <a href="rsa.html" class="btn btn-primary">
+                                <span>Accéder au guide</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
                         </div>
                     </div>
                     
-                    <div class="guide-card">
-                        <div class="guide-info">
-                            <div class="guide-title">
-                                <span class="environment-badge server">Transfert</span>
-                                <h3 style="margin: 0; color: var(--dark-color);">Configuration SFTP</h3>
-                            </div>
-                            <p class="guide-description">Guide complet pour configurer SFTP sur Debian et se connecter depuis Windows</p>
+                    <div class="guide-card" data-category="server">
+                        <div class="card-header">
+                            <span class="environment-badge server">Transfert</span>
+                            <div class="card-icon">📁</div>
                         </div>
-                        <div class="guide-action">
-                            <a href="sftp.html" class="btn">Accéder au guide</a>
+                        <div class="card-content">
+                            <h3>Configuration SFTP</h3>
+                            <p class="guide-description">Guide complet pour configurer SFTP sur Debian et établir des connexions sécurisées depuis Windows.</p>
+                            <ul class="feature-list">
+                                <li>Installation SSH/SFTP</li>
+                                <li>Configuration sécurité</li>
+                                <li>Connexion Windows</li>
+                            </ul>
+                        </div>
+                        <div class="card-footer">
+                            <div class="difficulty">
+                                <span class="difficulty-label">Niveau :</span>
+                                <span class="difficulty-value intermediate">Intermédiaire</span>
+                            </div>
+                            <a href="sftp.html" class="btn btn-primary">
+                                <span>Accéder au guide</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="apropos" class="section about-section">
+                <div class="about-content">
+                    <h2>À propos de ce portail</h2>
+                    <p>Ce portail a été créé pour rassembler des guides techniques de qualité sur l'administration système. Chaque guide est soigneusement rédigé et vérifié pour vous offrir le meilleur contenu.</p>
+                    <div class="about-features">
+                        <div class="feature">
+                            <div class="feature-icon">✅</div>
+                            <h4>Contenu Vérifié</h4>
+                            <p>Tous les guides sont testés et validés</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">🆓</div>
+                            <h4>Gratuit</h4>
+                            <p>Accès libre à tous les contenus</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">📚</div>
+                            <h4>Complet</h4>
+                            <p>Des bases aux configurations avancées</p>
                         </div>
                     </div>
                 </div>
@@ -141,8 +206,69 @@
         </main>
         
         <footer>
-            <p>Portail des guides techniques - Tous droits réservés</p>
+            <div class="footer-content">
+                <p>Portail des guides techniques - Tous droits réservés</p>
+                <p class="footer-links">
+                    <a href="#accueil">Accueil</a> • 
+                    <a href="#guides">Guides</a> • 
+                    <a href="#apropos">À propos</a>
+                </p>
+            </div>
         </footer>
     </div>
+
+    <script>
+        // Filtrage des cartes par catégorie
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const guideCards = document.querySelectorAll('.guide-card');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Retirer la classe active de tous les boutons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Ajouter la classe active au bouton cliqué
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    guideCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, 10);
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+            
+            // Navigation fluide
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
