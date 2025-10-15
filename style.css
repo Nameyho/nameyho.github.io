@@ -1,4 +1,3 @@
-/* Variables de couleurs basées sur Apache */
 :root {
     --primary-color: #e44d26;
     --secondary-color: #d14026;
@@ -6,12 +5,8 @@
     --light-color: #f5f5f5;
     --code-bg: #2d2d2d;
     --code-color: #f8f8f2;
-    --success-color: #27ae60;
-    --warning-color: #f39c12;
-    --danger-color: #e74c3c;
 }
 
-/* Styles généraux */
 * {
     margin: 0;
     padding: 0;
@@ -32,7 +27,6 @@ body {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-/* En-tête */
 header {
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
@@ -50,7 +44,6 @@ h1 {
     opacity: 0.9;
 }
 
-/* Navigation */
 nav {
     background-color: var(--dark-color);
     position: sticky;
@@ -81,7 +74,6 @@ nav a:hover {
     background-color: #444;
 }
 
-/* Contenu principal */
 .content {
     display: flex;
     min-height: 100vh;
@@ -141,11 +133,6 @@ h3 {
     margin: 1.5rem 0 1rem 0;
 }
 
-h4 {
-    color: var(--dark-color);
-    margin: 1rem 0 0.5rem 0;
-}
-
 p {
     margin-bottom: 1rem;
 }
@@ -159,7 +146,6 @@ li {
     margin-bottom: 0.5rem;
 }
 
-/* Blocs de code */
 .code-block {
     background-color: var(--code-bg);
     color: var(--code-color);
@@ -179,7 +165,6 @@ li {
     font-family: 'Courier New', monospace;
 }
 
-/* Notes et alertes */
 .note {
     background-color: #e7f3ff;
     border-left: 4px solid #4d90fe;
@@ -189,19 +174,11 @@ li {
 
 .warning {
     background-color: #fff8e1;
-    border-left: 4px solid var(--warning-color);
+    border-left: 4px solid #ffc107;
     padding: 1rem;
     margin: 1.5rem 0;
 }
 
-.security {
-    background-color: #ffebee;
-    border-left: 4px solid var(--danger-color);
-    padding: 1rem;
-    margin: 1.5rem 0;
-}
-
-/* Étapes */
 .step {
     background-color: #f9f9f9;
     border-left: 4px solid var(--primary-color);
@@ -221,7 +198,6 @@ li {
     margin-right: 10px;
 }
 
-/* Tableaux */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -239,202 +215,6 @@ th {
     color: var(--dark-color);
 }
 
-/* Exercices */
-.exercise {
-    background-color: white;
-    padding: 1.5rem;
-    border-radius: 5px;
-    margin-bottom: 2rem;
-    border: 1px solid #e0e0e0;
-}
-
-.exercise-title {
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-    font-size: 1.3rem;
-    display: flex;
-    align-items: center;
-}
-
-.exercise-title::before {
-    content: "•";
-    color: var(--primary-color);
-    font-size: 2rem;
-    margin-right: 10px;
-}
-
-.question {
-    margin-bottom: 1.5rem;
-    padding-left: 1rem;
-    border-left: 3px solid var(--warning-color);
-}
-
-.formula {
-    background-color: #f0f7ff;
-    padding: 1rem;
-    border-radius: 5px;
-    margin: 1rem 0;
-    font-family: 'Cambria Math', serif;
-    text-align: center;
-    font-size: 1.1rem;
-}
-
-/* Boutons */
-.btn {
-    display: inline-block;
-    background-color: var(--primary-color);
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: background-color 0.3s;
-    border: none;
-    cursor: pointer;
-    margin-right: 0.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.btn:hover {
-    background-color: var(--secondary-color);
-}
-
-.btn-success {
-    background-color: var(--success-color);
-}
-
-.btn-success:hover {
-    background-color: #219653;
-}
-
-.btn-reset {
-    background-color: var(--danger-color);
-}
-
-.btn-reset:hover {
-    background-color: #c0392b;
-}
-
-/* Calculatrices et outils */
-.calculator {
-    background-color: white;
-    padding: 1.5rem;
-    border-radius: 8px;
-    margin: 1.5rem 0;
-    border: 1px solid #e0e0e0;
-}
-
-.input-group {
-    margin-bottom: 1rem;
-}
-
-label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: var(--dark-color);
-}
-
-input {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-}
-
-.result {
-    margin-top: 1.5rem;
-    padding: 1rem;
-    border-radius: 4px;
-    background-color: #e8f5e9;
-    border-left: 4px solid var(--success-color);
-}
-
-/* Checklist */
-.checklist-item {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 15px;
-    padding: 15px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.checklist-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.checklist-item input[type="checkbox"] {
-    margin-right: 15px;
-    margin-top: 3px;
-    transform: scale(1.3);
-}
-
-.checklist-content {
-    flex: 1;
-}
-
-.checklist-title {
-    font-weight: 600;
-    margin-bottom: 5px;
-    color: var(--dark-color);
-}
-
-.checklist-description {
-    color: #666;
-    font-size: 0.95rem;
-    margin-bottom: 10px;
-}
-
-/* Badges */
-.environment-badge {
-    display: inline-block;
-    background: var(--primary-color);
-    color: white;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    margin-right: 10px;
-}
-
-.environment-badge.server {
-    background: var(--danger-color);
-}
-
-.environment-badge.client {
-    background: var(--success-color);
-}
-
-.verified-badge {
-    display: inline-block;
-    background: var(--success-color);
-    color: white;
-    padding: 2px 6px;
-    border-radius: 3px;
-    font-size: 0.7rem;
-    margin-left: 8px;
-    vertical-align: middle;
-}
-
-/* Combinaisons de touches */
-.key-combination {
-    display: inline-block;
-    background: var(--dark-color);
-    color: white;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-family: 'Courier New', monospace;
-    font-size: 0.9rem;
-    margin: 0 2px;
-    font-weight: bold;
-}
-
-/* Pied de page */
 footer {
     background-color: var(--dark-color);
     color: white;
@@ -443,22 +223,6 @@ footer {
     margin-top: 2rem;
 }
 
-/* Navigation active */
-nav a.active {
-    background-color: var(--primary-color);
-}
-
-/* Liens */
-a {
-    color: var(--primary-color);
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* Responsive */
 @media (max-width: 768px) {
     .content {
         flex-direction: column;
@@ -472,13 +236,5 @@ a:hover {
     
     nav ul {
         flex-direction: column;
-    }
-    
-    h1 {
-        font-size: 2rem;
-    }
-    
-    .main-content {
-        padding: 1rem;
     }
 }
