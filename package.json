@@ -1,0 +1,14 @@
+{
+  "name": "securityplus-trainer",
+  "version": "1.0.0",
+  "description": "Préparation gratuite et open source à la certification CompTIA Security+ SY0-701 : tableau de bord de suivi et examens blancs.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate": "node scripts/validate.mjs",
+    "sample": "node scripts/validate.mjs --sample",
+    "serve": "npx --yes http-server . -p 8080 -c-1"
+  },
+  "engines": { "node": ">=18" },
+  "license": "MIT"
+}

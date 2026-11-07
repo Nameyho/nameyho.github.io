@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulateur d'examen — Security+ Trainer</title>
+<meta name="description" content="Examens blancs CompTIA Security+ SY0-701 gratuits : plus de 2 500 questions, PBQ, chronomètre et correction détaillée.">
+<link rel="stylesheet" href="assets/css/theme.css">
+<link rel="stylesheet" href="assets/css/exam.css">
+</head>
+<body>
+<div class="wrap">
+  <nav class="topnav">
+    <a class="brand" href="index.html">Security<span>+</span> Trainer</a>
+    <a class="link" href="index.html">Accueil</a>
+    <a class="link" href="dashboard.html">Tableau de bord</a>
+    <a class="link active" href="exam.html">Examens blancs</a>
+  </nav>
+
+  <!-- ACCUEIL -->
+  <section id="home">
+    <h1>Simulateur d'examen <span>Security+</span> SY0-701</h1>
+    <div class="sub">Questions en anglais, comme à l'examen. Explications en français. Les questions que tu n'as jamais vues sont proposées en priorité.</div>
+
+    <div class="stats">
+      <div class="card kpi"><div class="label">Questions disponibles</div><div class="val" id="bankTotal">—</div><div class="hint">QCM + PBQ, réponses mélangées à chaque fois</div></div>
+      <div class="card kpi"><div class="label">Déjà vues</div><div class="val" id="bankSeen">0</div><div class="hint" id="bankSeenPct">—</div></div>
+      <div class="card kpi"><div class="label">Erreurs à revoir</div><div class="val" id="mistakeCount">0</div><div class="hint">retirées dès que tu réponds juste</div></div>
+    </div>
+
+    <div class="modes">
+      <div class="card mode">
+        <h3>Examen complet</h3>
+        <p>Conditions réelles : PBQ d'abord, pas de correction avant la fin, questions marquables pour révision.</p>
+        <div class="meta">4 PBQ + 86 QCM · 90 min</div>
+        <button class="primary" data-start="full">Commencer l'examen</button>
+      </div>
+      <div class="card mode">
+        <h3>Mini-examen</h3>
+        <p>Format court pour réviser chaque jour, avec la même pondération des domaines.</p>
+        <div class="meta">2 PBQ + 28 QCM · 30 min</div>
+        <button class="primary" data-start="quick">Commencer</button>
+      </div>
+      <div class="card mode">
+        <h3>Par domaine</h3>
+        <p>Sans chronomètre. Correction et explication après chaque question.</p>
+        <select id="domSel" aria-label="Domaine">
+          <option value="1">1.0 General Security Concepts</option>
+          <option value="2">2.0 Threats, Vulnerabilities &amp; Mitigations</option>
+          <option value="3">3.0 Security Architecture</option>
+          <option value="4">4.0 Security Operations</option>
+          <option value="5">5.0 Program Management &amp; Oversight</option>
+        </select>
+        <div class="row">
+          <select id="domCount" aria-label="Nombre de questions"><option>10</option><option selected>20</option><option>50</option><option>100</option></select>
+          <label><input type="checkbox" id="domPbq"> inclure les PBQ</label>
+        </div>
+        <button class="primary" data-start="domain">S'entraîner</button>
+      </div>
+      <div class="card mode">
+        <h3>Mes erreurs</h3>
+        <p>Retravaille les questions ratées (jusqu'à 50 par session). Une question juste sort de la liste.</p>
+        <div class="meta">Sans chronomètre</div>
+        <button class="primary" id="mistakesBtn" data-start="mistakes">Réviser</button>
+      </div>
+    </div>
+
+    <div class="card info">
+      <b>Le vrai examen, en bref :</b>
+      <ul>
+        <li>90 questions maximum en 90 minutes, QCM (parfois « Choose two ») et PBQ (questions pratiques).</li>
+        <li>Score de 100 à 900 ; il faut <b>750</b> pour réussir. Aucune pénalité pour une mauvaise réponse : réponds à tout.</li>
+        <li>Les PBQ arrivent en premier. Astuce courante : les marquer, faire les QCM, puis y revenir.</li>
+        <li>Le score /900 affiché ici est une <b>estimation</b> (CompTIA ne publie pas sa formule). Vise 85 % et plus de façon régulière avant de réserver.</li>
+      </ul>
+    </div>
+
+    <div class="card hist" id="histCard">
+      <b>Historique</b>
+      <div id="hist"></div>
+    </div>
+  </section>
+
+  <!-- EXAMEN -->
+  <section id="exam" class="hidden">
+    <div class="topbar">
+      <span class="qnum" id="qnum"></span>
+      <span class="timer" id="timer"></span>
+      <span class="spacer"></span>
+      <button class="flagbtn" id="flagBtn">⚑ Marquer pour révision</button>
+      <button id="quitBtn">Quitter</button>
+      <button class="primary" id="endBtn">Terminer l'examen</button>
+    </div>
+    <div class="layout">
+      <div class="card" id="qcard"></div>
+      <aside class="card">
+        <div class="grid" id="qgrid"></div>
+        <div class="legend">■ bleu = répondu · ● orange = marqué<br>Clavier : 1-5 choisir, ← → naviguer, F marquer, Entrée valider</div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- RÉSULTATS -->
+  <section id="results" class="hidden">
+    <h1>Résultats</h1>
+    <div class="sub" id="resSub"></div>
+    <div class="res-top">
+      <div class="card kpi"><div class="l">Score</div><div class="v" id="rPct"></div><div class="h" id="rRaw"></div></div>
+      <div class="card kpi"><div class="l">Estimation /900</div><div class="v" id="rScaled"></div><div class="h">seuil de réussite : 750</div></div>
+      <div class="card kpi"><div class="l">Verdict</div><div class="v" id="rVerdict" style="font-size:24px"></div><div class="h" id="rVerdictH"></div></div>
+      <div class="card kpi"><div class="l">Temps utilisé</div><div class="v" id="rTime"></div><div class="h" id="rSaved"></div></div>
+    </div>
+    <div class="card"><b>Par domaine</b><div id="rDomains" style="margin-top:8px"></div></div>
+    <div class="rtools">
+      <h2>Correction détaillée</h2>
+      <button id="onlyWrong">Erreurs seulement</button>
+      <button id="showAll">Tout afficher</button>
+      <button class="primary" id="homeBtn">Retour</button>
+    </div>
+    <div id="review"></div>
+  </section>
+
+  <footer>Projet communautaire non affilié à CompTIA. Questions originales, pas de « braindumps ».<br>Ta progression est stockée uniquement dans ce navigateur.</footer>
+</div>
+
+<div class="modal hidden" id="modal" role="dialog" aria-modal="true"><div class="card"><h3 id="mTitle" style="margin-top:0"></h3><p id="mText"></p><div style="display:flex;gap:8px;justify-content:flex-end"><button id="mNo">Annuler</button><button class="primary" id="mYes">Confirmer</button></div></div></div>
+
+<script src="assets/js/core.js"></script>
+<script src="data/questions-core.js"></script>
+<script src="data/pbqs.js"></script>
+<script src="data/ports.js"></script>
+<script src="data/concepts/domain-1.js"></script>
+<script src="data/concepts/domain-2.js"></script>
+<script src="data/concepts/domain-3.js"></script>
+<script src="data/concepts/domain-4.js"></script>
+<script src="data/concepts/domain-5.js"></script>
+<script src="assets/js/generator.js"></script>
+<script src="assets/js/exam.js"></script>
+</body>
+</html>

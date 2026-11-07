@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security+ Trainer — Préparation gratuite CompTIA Security+ SY0-701</title>
+<meta name="description" content="Préparation gratuite et open source à la certification CompTIA Security+ SY0-701 : tableau de bord de suivi et examens blancs avec plus de 2 500 questions.">
+<link rel="stylesheet" href="assets/css/theme.css">
+<style>
+  .hero { padding: 26px 0 8px; }
+  .hero h1 { font-size: 34px; }
+  .hero p { color: var(--muted); font-size: 16px; max-width: 720px; }
+  .cta { display: flex; gap: 10px; flex-wrap: wrap; margin: 18px 0 28px; }
+  .cta .btn { padding: 11px 18px; font-size: 15px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 14px; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 14px; }
+  @media (max-width: 860px) { .grid3, .grid4 { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .grid3, .grid4 { grid-template-columns: 1fr; } }
+  .feature h3 { margin: 0 0 6px; font-size: 16px; }
+  .feature p { margin: 0; color: var(--muted); font-size: 14px; }
+  .section-title { font-size: 18px; margin: 26px 0 12px; }
+  .privacy { border-left: 3px solid var(--ok); }
+  .privacy p { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="topnav">
+    <a class="brand" href="index.html">Security<span>+</span> Trainer</a>
+    <a class="link active" href="index.html">Accueil</a>
+    <a class="link" href="dashboard.html">Tableau de bord</a>
+    <a class="link" href="exam.html">Examens blancs</a>
+  </nav>
+
+  <section class="hero">
+    <h1>Prépare ta certification <span>Security+</span> SY0-701</h1>
+    <p>Un outil gratuit et open source pour suivre ta progression sur les 28 objectifs officiels et t'entraîner avec des examens blancs réalistes. Ça fonctionne dans le navigateur, sans compte ni inscription.</p>
+    <div class="cta">
+      <a class="btn primary" href="exam.html">Lancer un examen blanc</a>
+      <a class="btn" href="dashboard.html">Ouvrir mon tableau de bord</a>
+    </div>
+  </section>
+
+  <div id="mine" class="hidden">
+    <h2 class="section-title">Ma progression</h2>
+    <div class="grid4">
+      <div class="card kpi"><div class="label">Objectifs couverts</div><div class="val" id="mProg">0%</div><div class="hint">pondéré par domaine</div></div>
+      <div class="card kpi"><div class="label">Dernier examen blanc</div><div class="val" id="mLast">—</div><div class="hint" id="mLastH"></div></div>
+      <div class="card kpi"><div class="label">Questions vues</div><div class="val" id="mSeen">0</div><div class="hint" id="mSeenH"></div></div>
+      <div class="card kpi"><div class="label">Examen</div><div class="val" id="mExam">—</div><div class="hint" id="mExamH">date à définir dans le tableau de bord</div></div>
+    </div>
+  </div>
+
+  <h2 class="section-title">Ce que tu trouveras ici</h2>
+  <div class="grid3">
+    <div class="card feature"><h3>Tableau de bord</h3><p>Les 5 domaines et 28 objectifs officiels, découpés en sous-thèmes à cocher, avec un niveau de confiance par objectif, un compte à rebours avant l'examen et un suivi de tes scores.</p></div>
+    <div class="card feature"><h3>Examens blancs</h3><p>Le format réel (90 questions en 90 minutes, PBQ en premier), pondéré par domaine. Tu obtiens un score estimé sur 900 et une correction détaillée en français.</p></div>
+    <div class="card feature"><h3>Une banque énorme</h3><p><b id="nQ">2 500+</b> questions générées à partir de <b id="nC">400+</b> concepts. Les questions jamais vues passent en priorité, et un mode « Mes erreurs » t'aide à progresser.</p></div>
+  </div>
+
+  <div class="card privacy">
+    <b>Ta progression reste privée</b>
+    <p>Tout est enregistré dans le stockage local de ton navigateur (localStorage). Il n'y a ni compte, ni serveur, ni traçage. Chaque visiteur a donc son propre suivi, invisible pour les autres. Pour changer d'appareil, utilise « Exporter ma progression » dans le tableau de bord, puis importe le fichier sur l'autre appareil.</p>
+  </div>
+
+  <footer>Projet communautaire non affilié à CompTIA. CompTIA et Security+ sont des marques déposées de CompTIA, Inc.<br>Les questions sont originales et ne proviennent pas de l'examen réel.</footer>
+</div>
+
+<script src="assets/js/core.js"></script>
+<script src="data/objectives.js"></script>
+<script src="data/questions-core.js"></script>
+<script src="data/pbqs.js"></script>
+<script src="data/ports.js"></script>
+<script src="data/concepts/domain-1.js"></script>
+<script src="data/concepts/domain-2.js"></script>
+<script src="data/concepts/domain-3.js"></script>
+<script src="data/concepts/domain-4.js"></script>
+<script src="data/concepts/domain-5.js"></script>
+<script src="assets/js/generator.js"></script>
+<script src="assets/js/home.js"></script>
+</body>
+</html>

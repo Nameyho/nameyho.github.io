@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tableau de bord — Security+ Trainer</title>
+<link rel="stylesheet" href="assets/css/theme.css">
+<link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+<body>
+<div class="wrap">
+  <nav class="topnav">
+    <a class="brand" href="index.html">Security<span>+</span> Trainer</a>
+    <a class="link" href="index.html">Accueil</a>
+    <a class="link active" href="dashboard.html">Tableau de bord</a>
+    <a class="link" href="exam.html">Examens blancs</a>
+  </nav>
+  <header>
+    <div>
+      <h1>CompTIA <span>Security+</span> — Suivi de préparation</h1>
+      <div class="sub">Objectifs officiels SY0-701 · 5 domaines · 28 objectifs · progression personnelle, stockée uniquement dans ce navigateur</div>
+    </div>
+    <div class="btns">
+      <button id="exportBtn">Exporter ma progression</button>
+      <label class="btn" for="importFile">Importer une sauvegarde</label>
+      <input type="file" id="importFile" accept=".json" class="hidden">
+      <button id="resetBtn">Réinitialiser</button>
+    </div>
+  </header>
+
+  <section class="grid kpis">
+    <div class="card kpi">
+      <div class="label">Progression globale</div>
+      <div class="val" id="kGlobal">0%</div>
+      <div class="hint" id="kGlobalHint">pondérée par le poids des domaines</div>
+      <div class="bar"><i id="kGlobalBar" style="width:0"></i></div>
+    </div>
+    <div class="card kpi">
+      <div class="label">Sous-thèmes cochés</div>
+      <div class="val" id="kItems">0</div>
+      <div class="hint" id="kItemsHint">sur 0</div>
+    </div>
+    <div class="card kpi">
+      <div class="label">Date d'examen</div>
+      <div class="val" id="kDays">—</div>
+      <div class="hint"><input type="date" id="examDate" style="padding:4px 6px;font-size:12.5px;margin-top:4px"></div>
+    </div>
+    <div class="card kpi">
+      <div class="label">Meilleur examen blanc</div>
+      <div class="val" id="kBest">—</div>
+      <div class="hint" id="kBestHint">objectif : 85 % et plus</div>
+    </div>
+  </section>
+
+  <section class="grid two">
+    <div class="card">
+      <h2>Avancement par domaine <small>poids à l'examen</small></h2>
+      <div id="domSummary"></div>
+      <div class="note"><b>Version de l'examen :</b> SY0-701 reste disponible jusqu'au 11 juin 2027 (en anglais). La nouvelle version SY0-801 est attendue le 17 novembre 2026 avec des objectifs différents — si tu passes l'examen après juin 2027, il faudra basculer sur SY0-801. Vérifie les dates sur comptia.org avant de réserver.</div>
+    </div>
+    <div class="card">
+      <h2>Examens blancs <small>score en %</small></h2>
+      <div class="scoreform">
+        <input type="date" id="sDate">
+        <input type="text" id="sSrc" placeholder="Source (Messer, Dion…)">
+        <input type="number" id="sVal" placeholder="%" min="0" max="100">
+        <button class="primary" id="sAdd">+</button>
+      </div>
+      <div class="chart" id="chart"></div>
+      <div class="scorelist" id="scoreList"></div>
+    </div>
+  </section>
+
+  <section class="grid two" style="grid-template-columns:1fr 1fr">
+    <div class="card">
+      <h2>Logistique de l'examen <small id="prepCount"></small></h2>
+      <div id="prepList"></div>
+      <div class="addrow"><input id="prepNew" placeholder="Ajouter une tâche…"><button id="prepAdd">Ajouter</button></div>
+    </div>
+    <div class="card">
+      <h2>Ressources & méthode <small id="resCount"></small></h2>
+      <div id="resList"></div>
+      <div class="addrow"><input id="resNew" placeholder="Ajouter une ressource…"><button id="resAdd">Ajouter</button></div>
+    </div>
+  </section>
+
+  <div class="toolbar">
+    <h2>Objectifs de l'examen</h2>
+    <input type="search" id="search" placeholder="Rechercher (ex. SAML, RPO, XSS)…">
+    <select id="filter">
+      <option value="all">Tous les objectifs</option>
+      <option value="todo">Non terminés</option>
+      <option value="weak">Confiance faible</option>
+      <option value="done">Terminés</option>
+    </select>
+    <button id="expandAll">Tout déplier</button>
+    <button id="collapseAll">Tout replier</button>
+  </div>
+
+  <div id="domains"></div>
+
+  <footer>Astuce : clique sur un objectif pour voir ses sous-thèmes. Note ta confiance (Faible / Moyen / Solide) pour cibler tes révisions. Exporte régulièrement une sauvegarde JSON (elle inclut aussi ton historique d'examens blancs) pour changer d'appareil ou ne rien perdre.</footer>
+</div>
+
+<script src="assets/js/core.js"></script>
+<script src="data/objectives.js"></script>
+<script src="assets/js/dashboard.js"></script>
+</body>
+</html>
